@@ -1,0 +1,1 @@
+.loading-mask[data-v-eb1fb565]{position:absolute;z-index:999999;height:100%;overflow:hidden;opacity:0;transition:.3s;pointer-events:none}.loading-mask svg[data-v-eb1fb565]{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:200px;height:200px}.loading-mask.active[data-v-eb1fb565]{transition:.3s;opacity:1;pointer-events:auto}

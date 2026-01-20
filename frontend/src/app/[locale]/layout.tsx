@@ -18,7 +18,7 @@ import QueryClientProvider from "@/providers/query-client-provider"
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner"
 import NextTopLoader from 'nextjs-toploader';
-import Overlay from '@/components/overlay';
+import Overlay from '@/components/Overlay';
 
 // 1. 設定字體
 const geistSans = Geist({

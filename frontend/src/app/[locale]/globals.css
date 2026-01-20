@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@plugin "@tailwindcss/typography"; /* 加入這一行 */
 
 @custom-variant dark (&:is(.dark *));
 

@@ -1,8 +1,8 @@
 "use client"
 
-import Footer from "@/components/footer";
+import Footer from "@/components/Footer";
 import { ThemeProvider } from 'next-themes'
-import Breadcrumb from "@/components/breadcrumb";
+import Breadcrumb from "@/components/Breadcrumb";
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (

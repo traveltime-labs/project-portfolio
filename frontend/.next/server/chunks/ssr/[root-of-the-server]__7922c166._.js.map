@@ -1,0 +1,8 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 6, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"","debugId":null}},
+    {"offset": {"line": 22, "column": 0}, "map": {"version":3,"sources":["file:///workspaces/project-portfolio/frontend/src/modules/frontend/about/content.tsx"],"sourcesContent":["/**\n  modules: 負責「組合這個頁面的一些功能區塊」\n  ex: 組合家具（PostList, CommentBtn），這房間只屬於這個房子\n  * \n */\n\nconst Content = () => {\n  return (\n    <div className=\"container mx-auto\">\n      <div> about </div>\n    </div>\n  );\n};\n\nexport default Content;\n"],"names":[],"mappings":"AAAA;;;;CAIC;;;;;AAED,MAAM,UAAU;IACd,qBACE,8OAAC;QAAI,WAAU;kBACb,cAAA,8OAAC;sBAAI;;;;;;;;;;;AAGX;uCAEe","debugId":null}},
+    {"offset": {"line": 52, "column": 0}, "map": {"version":3,"sources":["file:///workspaces/project-portfolio/frontend/src/app/%5Blocale%5D/%28frontend%29/about/page.tsx"],"sourcesContent":["// import FrontendUIWrapper from \"@/components/frontend/FrontendUIWrapper\";\nimport Content from \"@/modules/frontend/about/content\";\n// 關於我\nconst Post = () => {\n  return (\n    <Content />\n  );\n};\n\nexport default Post;\n\n\n\n"],"names":[],"mappings":"AAAA,2EAA2E;;;;;AAC3E;;;AACA,MAAM;AACN,MAAM,OAAO;IACX,qBACE,8OAAC,+IAAA,CAAA,UAAO;;;;;AAEZ;uCAEe","debugId":null}}]
+}

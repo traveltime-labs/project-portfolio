@@ -8,7 +8,7 @@
  */
 
 import type { Metadata } from "next";
-import FrontendUIWrapper from "@/components/frontend/FrontendUIWrapper";
+import FrontendUIWrapper from "@/components/FrontendUIWrapper";
 
 export const metadata: Metadata = {
   title: "toolkit",

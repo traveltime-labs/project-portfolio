@@ -37,8 +37,9 @@ __turbopack_context__.n(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$c
 
 /**
  * 前台外殼 - 中間層(路由佈局 Route Layout)
- * 它決定了前台長什麼樣子（例如：要有 Header 和 Footer）。
- * 它是一個 Server Component。為了 SEO，它負責把 Metadata 定義好，然後把內容傳給下一層。
+ * 入口處 前台的主要外殼
+ * 是一個 Server Component。
+ * 為了 SEO，它負責把 Metadata 定義好，然後把內容傳給下一層。
  * 定義 SEO 和 靜態組件。這是 Google 爬蟲會看到的地方。
  */ __turbopack_context__.s({
     "default": ()=>FrontendLayout,
@@ -49,14 +50,44 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Fronten
 ;
 ;
 const metadata = {
-    title: "toolkit"
+    title: {
+        default: "TEST Blog",
+        template: "%s | TEST Blog"
+    },
+    description: "分享 TEST BLOG",
+    keywords: [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "部落格"
+    ],
+    authors: [
+        {
+            name: "Your Name"
+        }
+    ],
+    openGraph: {
+        title: "TEST Blog",
+        description: "分享技術心得",
+        url: "https://your-domain.com",
+        siteName: "My Blog",
+        images: [
+            {
+                url: "/og-image.jpg",
+                width: 1200,
+                height: 630
+            }
+        ],
+        locale: "zh_TW",
+        type: "website"
+    }
 };
 function FrontendLayout({ children }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$FrontendUIWrapper$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
         children: children
     }, void 0, false, {
         fileName: "[project]/src/app/[locale]/(frontend)/layout.tsx",
-        lineNumber: 20,
+        lineNumber: 42,
         columnNumber: 5
     }, this);
 }

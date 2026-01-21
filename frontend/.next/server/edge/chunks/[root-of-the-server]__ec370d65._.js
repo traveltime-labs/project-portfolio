@@ -18,10 +18,10 @@ module.exports = mod;
 }}),
 "[project]/src/messages/en.json (json)": ((__turbopack_context__) => {
 
-__turbopack_context__.v(JSON.parse("{\"HomePage\":{\"title\":\"Toolkit(英文)\",\"home\":\"home(英文)\"},\"Admin\":{\"title\":\"Toolkit Admin(英文)\",\"list\":\"list(英文)\",\"addPost\":\"add post(英文)\"}}"));}),
+__turbopack_context__.v(JSON.parse("{\"HomePage\":{\"title\":\"TEST(英文)\",\"home\":\"home(英文)\"},\"Admin\":{\"title\":\"TEst Admin(英文)\",\"list\":\"list(英文)\",\"addPost\":\"add post(英文)\"}}"));}),
 "[project]/src/messages/zh.json (json)": ((__turbopack_context__) => {
 
-__turbopack_context__.v(JSON.parse("{\"HomePage\":{\"title\":\"Toolkit(中文) \",\"home\":\"首頁(中文)\"},\"Admin\":{\"title\":\"Toolkit (中文)\",\"list\":\"列表(中文)\",\"addPost\":\"新增文章(中文)\"}}"));}),
+__turbopack_context__.v(JSON.parse("{\"HomePage\":{\"title\":\"TEST (ZH)\",\"home\":\"首頁(中文)\"},\"Admin\":{\"title\":\"TEST (ZH)\",\"list\":\"列表(中文)\",\"addPost\":\"新增文章(中文)\"}}"));}),
 "[project]/src/i18n/request.ts [middleware-edge] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 

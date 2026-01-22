@@ -22,7 +22,6 @@ const header = ({ toggleSidebar, isSidebarOpen }: HeaderProps) => {
     const { theme, setTheme } = useTheme();
     const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
     const pathname = usePathname(); // 取得路徑
-    console.log(pathname)
     const t = useTranslations("HomePage");
 
     const [keyword, setKeyword] = useState('')
@@ -45,6 +44,7 @@ const header = ({ toggleSidebar, isSidebarOpen }: HeaderProps) => {
                         <Link href="/category">page1 {/* 分類: 一堆標籤*/}</Link>
                         <Link href="/about">page2 {/* 關於我: 介紹及作品集連結*/}</Link>
                         <Link href="/articles">page3 {/* 文章列表: 歷史線性呈現 */}</Link> 
+                        {/*<Link href="/Clander">page4  日立: 發文軌跡(不一定要做) </Link> */}
                     </div>
 
 

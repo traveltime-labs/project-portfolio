@@ -1,5 +1,9 @@
 _doc
 **/node_modules/
+.next/
+out/
+build/
+
 
 # 排除 SQLite DB
 #/DB

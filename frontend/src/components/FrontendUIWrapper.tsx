@@ -15,6 +15,7 @@ import Sidebar from "@/components/Sidebar";
 import Footer from "@/components/Footer";
 import SideTools from "@/components/SideTools"
 import AIChat from "@/components/AIChat"
+import InnerSidebar from "@/components/InnerSidebar"
 
 
 import {
@@ -26,8 +27,8 @@ import {
 import type { ImperativePanelHandle } from "react-resizable-panels"
 
 export default function FrontendUIWrapper({ children }: { children: React.ReactNode }) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isChatOpen, setIsChatOpen] = useState(true)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // 手機板 sideBar, 預設關閉
+  const [isChatOpen, setIsChatOpen] = useState(false) // ai chat, 預設關閉
   const chatPanelRef = useRef<ImperativePanelHandle>(null)
   const [mounted, setMounted] = useState(false);
 
@@ -37,20 +38,20 @@ export default function FrontendUIWrapper({ children }: { children: React.ReactN
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   const toggleChat = () => {
-  const chatPanel = chatPanelRef.current
-  if (chatPanel) {
-    if (isChatOpen) {
-      // 1. 先摺疊面板
-      chatPanel.collapse()
-      // 2. 稍微延遲再隱藏 Handle，避免計算中的 Handle 突然消失
-      setTimeout(() => setIsChatOpen(false), 100)
-    } else {
-      // 展開則反過來，先顯示 Handle 再展開
-      setIsChatOpen(true)
-      setTimeout(() => chatPanel.expand(), 10)
+    const chatPanel = chatPanelRef.current
+    if (chatPanel) {
+      if (isChatOpen) {
+        // 1. 先摺疊面板
+        chatPanel.collapse()
+        // 2. 稍微延遲再隱藏 Handle，避免計算中的 Handle 突然消失
+        setTimeout(() => setIsChatOpen(false), 100)
+      } else {
+        // 展開則反過來，先顯示 Handle 再展開
+        setIsChatOpen(true)
+        setTimeout(() => chatPanel.expand(), 10)
+      }
     }
   }
-}
 
 
   return (
@@ -61,20 +62,24 @@ export default function FrontendUIWrapper({ children }: { children: React.ReactN
       className="rounded-lg border"
       id="main-layout-group" // 手動指定 ID
     >
-
       <ResizablePanel 
         defaultSize={75} 
         minSize={30} 
         order={1}
         id="main-content"
       >
-
         <Header toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
-         <div className="flex w-full  ">
+         <div >
               {isSidebarOpen && <Sidebar />}
-              <main className="w-full lg:mx-auto h-auto min-h-screen max-w-[1600px] p-4">
-                {children}
-              </main>
+              <div className="flex flex-col-reverse lg:flex-row">
+                <main className="w-full lg:mx-auto h-auto min-h-screen max-w-[1600px] p-4">
+                  {children}
+                </main>
+                <div className="min-w-[300px]">
+                  <InnerSidebar/>
+                </div>
+
+              </div>
               <SideTools toggleChat={toggleChat}/>
           </div>
           <Footer />
@@ -98,10 +103,11 @@ export default function FrontendUIWrapper({ children }: { children: React.ReactN
       <ResizablePanel 
         id="chat-panel"
         order={2}
-        defaultSize={25}
+        defaultSize={0}        // 預設關閉
+        collapsedSize={0}         // 摺疊時的大小
         ref={chatPanelRef}
         collapsible={true}      // 必須開啟此屬性
-        minSize={15}            // 展開時的最小寬度
+        minSize={25}            // 展開時的最小寬度
         maxSize={40}
         onCollapse={() => setIsChatOpen(false)} // 處理手動拉到消失的情況
         onExpand={() => setIsChatOpen(true)}    // 處理手動拉開的情況

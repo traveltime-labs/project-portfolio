@@ -12,7 +12,7 @@
   "static/chunks/node_modules_tailwind-merge_dist_bundle-mjs_mjs_b854acb4._.js",
   "static/chunks/node_modules_next_15251bc2._.js",
   "static/chunks/node_modules_472c7c0d._.js",
-  "static/chunks/src_318a4730._.js"
+  "static/chunks/src_e19a185c._.js"
 ],
     source: "dynamic"
 });

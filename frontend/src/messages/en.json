@@ -3,6 +3,12 @@
     "title": "TEST(英文)",
     "home": "home(英文)"
   },
+  "Menu": {
+    "Home": "Home",
+    "About": "About",
+    "Category": "Category",
+    "List": "List"
+  },
   "Admin": {
     "title": "TEst Admin(英文)",
     "list": "list(英文)",

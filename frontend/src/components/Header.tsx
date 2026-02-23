@@ -9,9 +9,22 @@ import { useState } from "react";
 import { useTheme } from "next-themes";
 import { Link, usePathname } from "@/i18n/routing"; // 注意要用我們自定義的 Link
 import { useTranslations } from "next-intl";
+import { IoLanguage } from "react-icons/io5";
 
 import Breadcrumb from "@/components/Breadcrumb";
 import IconButton from "@/components/IconButton";
+
+import {Button} from "@/components/ui/button";
+
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 type HeaderProps = {
     toggleSidebar: () => void;
@@ -22,32 +35,38 @@ const header = ({ toggleSidebar, isSidebarOpen }: HeaderProps) => {
     const { theme, setTheme } = useTheme();
     const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
     const pathname = usePathname(); // 取得路徑
-    const t = useTranslations("HomePage");
+    const t = useTranslations();
 
     const [keyword, setKeyword] = useState('')
     const serachKeyword = () => {
         console.log('搜尋關鍵字')
     }
-    
+
     return (
         <header className=" sticky top-0 left-0 right-0  bg-white dark:bg-black/50 backdrop-blur-sm z-50 w-full">
             <div className=" py-3 px-4 lg:px-0 lg:max-w-[1600px] w-full flex items-center justify-between mx-auto">
                 <h1 className=" font-bold text-dark dark:text-white transition-colors">
-                    <Link href="/">{t("title")}</Link>
+                    <Link href="/">{t("HomePage.title")}</Link>
                 </h1>
 
 
                 <div className="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
 
-                    <div className="hidden md:block mr-10">
-                        <Link href="/">page0 {/* 首頁: 最新文章*/}</Link>
-                        <Link href="/category">page1 {/* 分類: 一堆標籤*/}</Link>
-                        <Link href="/about">page2 {/* 關於我: 介紹及作品集連結*/}</Link>
-                        <Link href="/articles">page3 {/* 文章列表: 歷史線性呈現 */}</Link> 
+                    <div className="hidden lg:block">
+                        <Link className="mx-2" href="/">{t("Menu.Home")} {/* 首頁: 最新文章*/}</Link>
+                        <Link className="mx-2" href="/category">
+                            {t("Menu.Category")} {/* 分類: 一堆標籤*/}
+                        </Link>
+                        <Link className="mx-2" href="/about">
+                            {t("Menu.About")} {/* 關於我: 介紹及作品集連結*/}
+                        </Link>
+                        <Link className="mx-2" href="/articles">
+                            {t("Menu.List")} {/* 文章列表: 歷史線性呈現 */}
+                        </Link>
                         {/*<Link href="/Clander">page4  日立: 發文軌跡(不一定要做) </Link> */}
                     </div>
 
-
+                    {/* 
                     <div className='hidden md:flex items-center gap-2 border rounded-4xl px-2 py-1.5'>
                         <input type="text" className="w-40"
                             placeholder="Search..."
@@ -60,44 +79,50 @@ const header = ({ toggleSidebar, isSidebarOpen }: HeaderProps) => {
                         </IconButton>
                     </div>
 
-                    
-                   
-                    
                     <div className="block md:hidden">
                         <IoIosSearch />
-                    </div>
-                    
-                        {/*<div data-orientation="vertical" className="bg-border w-0.5 h-4 hidden lg:block"></div>*/}
-                        <IconButton onClick={toggleTheme}>
-                            {theme === 'light' ? <FaMoon /> : <MdOutlineWbSunny />}
-                        </IconButton>
-                        
-                        {/* <div data-orientation="vertical" className="bg-border w-0.5 h-4 hidden lg:block"></div> */}
+                    </div> */}
 
-                        <IconButton>
-                        <Link 
-                            href={pathname} 
-                            locale="zh" 
-                            className={`px-2 py-1 text-sm ${pathname.includes('/zh') ? 'font-bold' : ''}`}
-                            >
-                                中
-                            </Link>
-                            <span className="text-gray-300">|</span>
-                            <Link 
-                            href={pathname} 
-                            locale="en" 
-                            className={`px-2 py-1 text-sm ${pathname.includes('/en') ? 'font-bold' : ''}`}
-                            >
-                                EN
-                            </Link>
-                        </IconButton>
-                    
+                    {/* 主題切換 */}
+                    <Button variant="ghost" onClick={toggleTheme}>
+                        {theme === 'light' ? <FaMoon /> : <MdOutlineWbSunny />}
+                    </Button>
+
+                    {/* 語系選單 */}
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="ghost">
+                                <IoLanguage/>
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            <DropdownMenuItem>
+                                <Link
+                                    href={pathname}
+                                    locale="zh"
+                                    className={`px-2 py-1 text-sm ${pathname.includes('/zh') ? 'font-bold' : ''}`}
+                                >
+                                    中
+                                </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                                <Link
+                                    href={pathname}
+                                    locale="en"
+                                    className={`px-2 py-1 text-sm ${pathname.includes('/en') ? 'font-bold' : ''}`}
+                                >
+                                    EN
+                                </Link>
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+
                     <div className=" lg:hidden" onClick={toggleSidebar}>
                         {!isSidebarOpen ? <RxHamburgerMenu className="btn-sidebar" /> : <IoClose className="btn-sidebar" />}
                     </div>
                 </div>
             </div>
-            <Breadcrumb/>
+            <Breadcrumb />
         </header>
     );
 }

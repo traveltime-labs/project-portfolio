@@ -1,31 +1,103 @@
 "use client";
 
-// type descriptionProps = {
-//     title: string,
-//     features: {
-//         title: string,
-//         description: string
-//     }[],
-//     instructionsTitle: string,
-//     instructions: string[]
-// }
-
-
-/*
-撈股票???
-撈新聞???
-
-*/
+import { Link } from "@/i18n/routing";
+import { FaGithub } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
+import { FaFacebookSquare } from "react-icons/fa";
 
 export default function InnerSideBar() {
-    return (
-        <div>
-          <div>about</div>
-          <div>AD</div>
-          <div>排行榜</div>
-          <div>今天天氣</div>
-          <div>標籤雲</div>
+  const categories = ["程式語言", "框架", "工具", "專案進度"];
+  const socials = [
+    { name: 'GitHub', href: 'https://github.com', icon: <FaGithub /> },
+    { name: 'Linkedin', href: 'https://linkedin.com', icon: <FaLinkedin /> },
+    { name: 'Facebook', href: 'https://facebook.com', icon: <FaFacebookSquare /> },
+  ];
+
+  return (
+    <aside className="space-y-6 mt-6 mx-auto container lg:max-w-[300px]">
+      {/* Author Card */}
+    {/* <aside className="col-span-1">
+          <div className="bg-white border border-slate-200 rounded-2xl p-6 text-center">
+            <div className="mx-auto h-28 w-28 rounded-full bg-slate-100 flex items-center justify-center text-3xl font-bold text-slate-600">W</div>
+            <h3 className="mt-4 text-lg font-semibold">W — 前端工程師</h3>
+            <p className="mt-2 text-sm text-slate-500">專注於前端元件、效能優化與開發者體驗。</p>
+
+            <div className="mt-4 text-left">
+              <div className="flex items-center gap-2 text-sm text-slate-700">
+                <BsTelephoneFill /> <span>+886 912 345 678</span>
+              </div>
+              <div className="mt-3">
+                <h4 className="text-sm font-medium mb-2">技能</h4>
+                <div className="flex flex-wrap gap-2">
+                  {skills.map((s) => (
+                    <Badge key={s} className="text-xs">{s}</Badge>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside> */}
+
+
+      <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 text-center">
+        <div className="mx-auto h-16 w-16 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-2xl font-bold text-slate-600 dark:text-slate-300">W</div>
+        <h3 className="mt-3 text-sm font-semibold">W - 練習用</h3>
+        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+            {/* 寫作筆記、實作記錄與專案切片。 */}
+            練習用brabrabra....
+        </p>
+        <div className="mt-3 flex items-center justify-center space-x-3">
+          {socials.map((s) => (
+            <a key={s.name} href={s.href} target="_blank" rel="noreferrer" className="text-xs text-slate-600 hover:text-blue-600">
+              {s.icon}
+            </a>
+          ))}
         </div>
-    );
+      </div>
+
+      {/* Search */}
+      <div className="bg-white border border-slate-200 rounded-2xl p-3">
+        <label className="block text-xs text-slate-500 mb-2">搜尋文章</label>
+        <div className="flex">
+          <input placeholder="輸入關鍵字" className="flex-1 rounded-l-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none" />
+          <button className="bg-blue-600 text-white px-3 py-2 rounded-r-lg text-sm">搜尋</button>
+        </div>
+      </div>
+
+      {/* Categories */}
+      <div className="bg-white border border-slate-200 rounded-2xl p-4 hidden lg:block">
+        <h4 className="text-sm font-semibold mb-3">文章分類</h4>
+        <ul className="space-y-2 text-sm">
+          {categories.map((c) => (
+            <li key={c} className="flex items-center justify-between">
+              <Link href={`/?category=${encodeURIComponent(c)}`} className="text-slate-700 hover:text-blue-600">{c}</Link>
+              <span className="text-xs text-slate-400">3</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Recent posts (placeholder) */}
+      <div className="bg-white border border-slate-200 rounded-2xl p-4 hidden lg:block">
+        <h4 className="text-sm font-semibold mb-3">近期文章</h4>
+        <ul className="space-y-2 text-sm text-slate-700">
+          <li>
+            <Link href="/blog/testRead" className="hover:text-blue-600">如何建立一個乾淨的前端專案結構</Link>
+          </li>
+          <li>
+            <Link href="/blog/testRead2" className="hover:text-blue-600">用 Vite + React 加速開發</Link>
+          </li>
+          <li>
+            <Link href="/blog/testRead3" className="hover:text-blue-600">部署與 CI/CD 快速入門</Link>
+          </li>
+        </ul>
+      </div>
+
+      {/* Mini widget */}
+      {/* <div className="bg-white border border-slate-200 rounded-2xl p-4 text-center text-sm text-slate-500">
+        天氣：待串接 API
+      </div> */}
+    </aside>
+  );
 }
   

@@ -31,7 +31,7 @@ const Content = () => {
         <p className="text-slate-600 mt-2">TEST 練習</p>
       </section> */}
 
-      <div className="max-w-6xl mx-auto py-8 px-4">
+      <div className="mx-auto py-8 lg:pr-8">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-lg font-semibold">最新文章</h2>
           <div className="text-sm text-slate-500">共 {posts.length} 篇</div>

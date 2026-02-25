@@ -6,8 +6,9 @@
   "Menu": {
     "Home": "首頁",
     "About": "關於",
-    "Category": "標籤",
-    "List": "文章列表"
+    "Category": "分類",
+    "List": "所有文章",
+    "Tags": "標籤"
   },
   "Admin": {
     "title": "TEST (ZH)",

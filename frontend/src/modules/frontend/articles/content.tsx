@@ -5,67 +5,52 @@
  */
 
 import { Link, usePathname } from "@/i18n/routing";
+import TimeLine from "@/components/TimeLine";
 
 // 歷史線性文章列表
 // 2026 > 2025 > 2024
 const Content = () => {
-  const fackData = [
-    {
-      year: 2025,
+
+  const timelineData = [
+    { 
+      year: '2024',
       data: [
         {
-          name: 'aaaa',
-          link: '/',
-          createDate: '2025-06-05 10:00:00'
+          date: '08-24', 
+          title: 'work1', 
+          desc: 'work1 - cotnent', 
+          link: '' 
         },
         {
-          name: 'aaaa',
-          link: '/',
-          createDate: '2025-06-05 10:00:00'
+          date: '08-20', 
+          title: 'work2', 
+          desc: 'TEST。', 
+          link: '' 
         }
       ]
     },
-    {
-      year: 2024,
+    { 
+      year: '2022', 
       data: [
-        {
-          name: 'aaaa',
-          link: '/',
-          createDate: '2024-06-05 10:00:00'
-        },
-        {
-          name: 'aaaa',
-          link: '/',
-          createDate: '2024-06-05 10:00:00'
-        }
+         { date: '05-10', title: 'work2', desc: '協助多個中小型專案完成前端實作與部署。', link: '/' },
+      ]
+    },
+    {
+      year: '2019',
+      data: [
+        { date: '10-10', title: 'work3', desc: '將工作中遇到的問題與解法整理成文章。', link: '/' },
       ]
     }
-  ]
+  ];
+
   return (
     <div className="container mx-auto">
       <div> articles </div>
       <div>
 
         {
-          fackData.length > 0 ? (
-            fackData.map((item, i) => (
-              // 1. 列表渲染需要加上 key
-              <ul key={item.year}>
-                <b>{item.year}</b>
-
-                {/* 2. 在 JSX 內部寫邏輯，必須再次使用 { } 大括號包裹 */}
-                {item.data.length > 0 ? (
-                  item.data.map((a, b) => (
-                    // 3. 內層 key 同樣重要，通常建議用 id 或具唯一性的值
-                    <li key={b}>
-                      <Link href={a.link}> {a.name} </Link>
-                    </li>
-                  ))
-                ) : (
-                  <li> no data </li>
-                )}
-              </ul>
-            ))
+          timelineData.length > 0 ? (
+            <TimeLine List={timelineData} />
           ) : (
             <div> nodata </div>
           )

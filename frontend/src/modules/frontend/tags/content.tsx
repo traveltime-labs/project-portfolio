@@ -4,7 +4,7 @@
   * 
  */
 
-// 標籤分類：從 src/content/posts 撈文章、依 category 分組並顯示
+// 標籤分類：從 src/content/posts 撈文章、依 tags 分組並顯示
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
@@ -16,6 +16,7 @@ interface PostMeta {
   date?: string;
   category?: string;
   excerpt?: string;
+  tags? : string[] | string;
 }
 
 function findPostsDir() {
@@ -46,6 +47,7 @@ function getAllPosts(): PostMeta[] {
       date: data.date,
       category: data.category || "uncategorized",
       excerpt: data.excerpt,
+      tags: data.tags || []
     };
   });
   return posts;
@@ -59,14 +61,14 @@ const Content = () => {
   // group by category
   const groups: Record<string, PostMeta[]> = {};
   posts.forEach((p) => {
-    const cat = (p.category || "uncategorized").toString();
-    if (!groups[cat]) groups[cat] = [];
-    groups[cat].push(p);
+    const tags = (p.tags || "uncategorized").toString();
+    if (!groups[tags]) groups[tags] = [];
+    groups[tags].push(p);
   });
 
   return (
     <div className="container mx-auto py-8">
-      <h2 className="text-2xl font-bold mb-6">Categories</h2>
+      <h2 className="text-2xl font-bold mb-6">Tags</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {Object.keys(groups).length === 0 ? (
           <div className="text-sm text-gray-500">No posts found.</div>
@@ -80,7 +82,7 @@ const Content = () => {
                   return (
                     <li key={p.slug}>
                       <Link href={`/blog/${p.slug}`} className={`${cls} text-blue-600 hover:underline`} aria-label={`Open ${p.title}`}>
-                        {p.category ? `[${p.category}] ` : ''}
+                        {p.tags ? `[${p.tags}] ` : ''}
                       </Link>
                       {/* {p.excerpt ? <p className="text-sm text-gray-500">{p.excerpt}</p> : null} */}
                     </li>

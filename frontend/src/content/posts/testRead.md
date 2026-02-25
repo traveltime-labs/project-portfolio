@@ -1,3 +1,11 @@
+---
+title: "testREAD.md"
+date: "2024-06-20"
+category: "分類"
+excerpt: "測試是否從這裡抓取。"
+tags: ["Next.js", "Tailwind", "MDX"]
+---
+
 
 # 測試用
 
@@ -8,8 +16,6 @@ category: 技術
 ---
 
 [測試連結](http://localhost:3000)
-
-
 
 ![側視圖片](/blog/testRead/bitcoin-banner.jpeg)
 
@@ -29,9 +35,7 @@ Google AdSense (廣告)：
 Slug（文章唯一辨識碼）
 
 
-
 ## 架構
-```
 my-blog/
 ├── content/              # 存放你的文章 (Markdown/MDX 檔案)
 │   ├── post-1.mdx
@@ -49,11 +53,8 @@ my-blog/
 ├── tailwind.config.js    # 樣式設定
 ├── contentlayer.config.ts # Markdown 結構定義 (標題、日期、分類)
 └── next.config.js
-```
 
-```ts
 console.log('test')
-```
 
 ## 架構
 類別,推薦技術,說明
@@ -63,6 +64,7 @@ console.log('test')
 文章格式,MDX (Markdown + JSX),比純 Markdown 更強，讓你在文章中直接嵌入 React 廣告組件或圖表。
 搜尋功能,Fuse.js,輕量級模糊搜尋，不需資料庫，直接在前端對文章索引進行檢索。
 部署平台,Vercel,Next.js 官方部署平台，支援 GitHub 聯動，一鍵自動發布。
+
 
 
 

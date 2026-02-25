@@ -37,14 +37,9 @@ const header = ({ toggleSidebar, isSidebarOpen }: HeaderProps) => {
     const pathname = usePathname(); // 取得路徑
     const t = useTranslations();
 
-    const [keyword, setKeyword] = useState('')
-    const serachKeyword = () => {
-        console.log('搜尋關鍵字')
-    }
-
     return (
         <header className=" sticky top-0 left-0 right-0  bg-white dark:bg-black/50 backdrop-blur-sm z-50 w-full">
-            <div className=" py-3 px-4 lg:px-0 lg:max-w-[1600px] w-full flex items-center justify-between mx-auto">
+            <div className=" py-3 px-4 lg:max-w-[1600px] w-full flex items-center justify-between mx-auto">
                 <h1 className=" font-bold text-dark dark:text-white transition-colors">
                     <Link href="/">{t("HomePage.title")}</Link>
                 </h1>
@@ -55,7 +50,10 @@ const header = ({ toggleSidebar, isSidebarOpen }: HeaderProps) => {
                     <div className="hidden lg:block">
                         <Link className="mx-2" href="/">{t("Menu.Home")} {/* 首頁: 最新文章*/}</Link>
                         <Link className="mx-2" href="/category">
-                            {t("Menu.Category")} {/* 分類: 一堆標籤*/}
+                            {t("Menu.Category")} {/* 分類 */}
+                        </Link>
+                        <Link className="mx-2" href="/tags">
+                            {t("Menu.Tags")} {/* 標籤*/}
                         </Link>
                         <Link className="mx-2" href="/about">
                             {t("Menu.About")} {/* 關於我: 介紹及作品集連結*/}

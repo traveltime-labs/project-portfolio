@@ -18,10 +18,10 @@ module.exports = mod;
 }}),
 "[project]/src/messages/en.json (json)": ((__turbopack_context__) => {
 
-__turbopack_context__.v(JSON.parse("{\"HomePage\":{\"title\":\"TEST(英文)\",\"home\":\"home(英文)\"},\"Menu\":{\"Home\":\"Home\",\"About\":\"About\",\"Category\":\"Category\",\"List\":\"List\"},\"Admin\":{\"title\":\"TEst Admin(英文)\",\"list\":\"list(英文)\",\"addPost\":\"add post(英文)\"}}"));}),
+__turbopack_context__.v(JSON.parse("{\"HomePage\":{\"title\":\"TEST(英文)\",\"home\":\"home(英文)\"},\"Menu\":{\"Home\":\"Home\",\"About\":\"About\",\"Category\":\"Category\",\"List\":\"List\",\"Tags\":\"Tags\"},\"Admin\":{\"title\":\"TEst Admin(英文)\",\"list\":\"list(英文)\",\"addPost\":\"add post(英文)\"}}"));}),
 "[project]/src/messages/zh.json (json)": ((__turbopack_context__) => {
 
-__turbopack_context__.v(JSON.parse("{\"HomePage\":{\"title\":\"TEST (ZH)\",\"home\":\"首頁(中文)\"},\"Menu\":{\"Home\":\"首頁\",\"About\":\"關於\",\"Category\":\"標籤\",\"List\":\"文章列表\"},\"Admin\":{\"title\":\"TEST (ZH)\",\"list\":\"列表(中文)\",\"addPost\":\"新增文章(中文)\"}}"));}),
+__turbopack_context__.v(JSON.parse("{\"HomePage\":{\"title\":\"TEST (ZH)\",\"home\":\"首頁(中文)\"},\"Menu\":{\"Home\":\"首頁\",\"About\":\"關於\",\"Category\":\"分類\",\"List\":\"所有文章\",\"Tags\":\"標籤\"},\"Admin\":{\"title\":\"TEST (ZH)\",\"list\":\"列表(中文)\",\"addPost\":\"新增文章(中文)\"}}"));}),
 "[project]/src/i18n/request.ts [middleware-edge] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 

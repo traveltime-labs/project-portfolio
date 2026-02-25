@@ -73,7 +73,7 @@ const Content = ()=>{
                 children: " articles "
             }, void 0, false, {
                 fileName: "[project]/src/modules/frontend/articles/content.tsx",
-                lineNumber: 46,
+                lineNumber: 47,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -84,7 +84,7 @@ const Content = ()=>{
                                 children: item.year
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/frontend/articles/content.tsx",
-                                lineNumber: 54,
+                                lineNumber: 55,
                                 columnNumber: 17
                             }, ("TURBOPACK compile-time value", void 0)),
                             item.data.length > 0 ? item.data.map((a, b)=>// 3. 內層 key 同樣重要，通常建議用 id 或具唯一性的值
@@ -98,41 +98,41 @@ const Content = ()=>{
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/modules/frontend/articles/content.tsx",
-                                        lineNumber: 61,
+                                        lineNumber: 62,
                                         columnNumber: 23
                                     }, ("TURBOPACK compile-time value", void 0))
                                 }, b, false, {
                                     fileName: "[project]/src/modules/frontend/articles/content.tsx",
-                                    lineNumber: 60,
+                                    lineNumber: 61,
                                     columnNumber: 21
                                 }, ("TURBOPACK compile-time value", void 0))) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
                                 children: " no data "
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/frontend/articles/content.tsx",
-                                lineNumber: 65,
+                                lineNumber: 66,
                                 columnNumber: 19
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, item.year, true, {
                         fileName: "[project]/src/modules/frontend/articles/content.tsx",
-                        lineNumber: 53,
+                        lineNumber: 54,
                         columnNumber: 15
                     }, ("TURBOPACK compile-time value", void 0))) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     children: " nodata "
                 }, void 0, false, {
                     fileName: "[project]/src/modules/frontend/articles/content.tsx",
-                    lineNumber: 70,
+                    lineNumber: 71,
                     columnNumber: 13
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/frontend/articles/content.tsx",
-                lineNumber: 47,
+                lineNumber: 48,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/frontend/articles/content.tsx",
-        lineNumber: 45,
+        lineNumber: 46,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };

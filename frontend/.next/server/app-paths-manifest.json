@@ -2,5 +2,6 @@
   "/[locale]/(frontend)/about/page": "app/[locale]/(frontend)/about/page.js",
   "/[locale]/(frontend)/articles/page": "app/[locale]/(frontend)/articles/page.js",
   "/[locale]/(frontend)/category/page": "app/[locale]/(frontend)/category/page.js",
-  "/[locale]/(frontend)/page": "app/[locale]/(frontend)/page.js"
+  "/[locale]/(frontend)/page": "app/[locale]/(frontend)/page.js",
+  "/[locale]/(frontend)/tags/page": "app/[locale]/(frontend)/tags/page.js"
 }

@@ -16,8 +16,8 @@ const routeMap: Record<string, string> = {
     const segments = pathname.split("/").filter(Boolean);
   
     return (
-      <nav className=" border-y-1 py-3 px-4 lg:px-2 text-sm text-gray-500 w-full mx-auto bg-white dark:bg-black/20 ">
-        <div className="max-w-400 mx-auto">
+      <nav className=" border-y-1 py-3 px-4 text-sm text-gray-500 w-full mx-auto bg-white dark:bg-black/20 ">
+        <div className="max-w-400 mx-auto px-0">
           <Link href="/">首頁</Link>
           {segments.map((seg, idx) => {
             const href = "/" + segments.slice(0, idx + 1).join("/");

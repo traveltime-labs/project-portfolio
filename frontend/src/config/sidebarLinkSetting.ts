@@ -1,13 +1,9 @@
 export const sidebarLink = {
-    uiComponents: [
-        // { name: 'vue2-btn', link: '/' },
-        // { name: 'aaa', link: '/' },
-        // { name: 'bbb', link: '/' },
-    ],
     tools: [
-        { name: '文字統計小工具', link: '/tools/text' },
-        { name: 'Timestamp ↔ 日期工具', link: '/tools/timestamp' },
-        { name: '隨機密碼產生器', link: '/tools/generatePassword' },
-        { name: '編碼', link: '/' },
+        { name: '首頁', link: '' },
+        { name: '分類', link: '/category' },
+        { name: '標籤', link: '/tags' },
+        { name: '文章列表', link: '/posts' },
+        { name: '關於', link: '/about' },
     ]
 }

@@ -8,16 +8,9 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import Link from "next/link";
+import { Link, usePathname } from "@/i18n/routing"; // 注意要用我們自定義的 Link
 
-interface PostMeta {
-  slug: string;
-  title?: string;
-  date?: string;
-  category?: string;
-  excerpt?: string;
-}
-
+// 取得文件路徑
 function findPostsDir() {
   const tryPaths = [
     path.join(process.cwd(), "src", "content", "posts"),
@@ -29,6 +22,7 @@ function findPostsDir() {
   return null;
 }
 
+// 讀取 meta 取得資料
 function getAllPosts(): PostMeta[] {
   const postsDir = findPostsDir();
   if (!postsDir) return [];
@@ -51,18 +45,15 @@ function getAllPosts(): PostMeta[] {
   return posts;
 }
 
-const fontClasses = ["text-sm", "text-base", "text-lg", "text-xl", "text-2xl"];
-
+// 組合內容
 const Content = () => {
   const posts = getAllPosts();
 
-  // group by category
-  const groups: Record<string, PostMeta[]> = {};
-  posts.forEach((p) => {
-    const cat = (p.category || "uncategorized").toString();
-    if (!groups[cat]) groups[cat] = [];
-    groups[cat].push(p);
-  });
+  const groups = posts.reduce((acc, post) => {
+    const cat = post.category || "uncategorized";
+    acc[cat] = (acc[cat] || 0) + 1;
+    return acc;
+  }, {} as Record<string, number>);
 
   return (
     <div className="container mx-auto py-8">
@@ -71,21 +62,28 @@ const Content = () => {
         {Object.keys(groups).length === 0 ? (
           <div className="text-sm text-gray-500">No posts found.</div>
         ) : (
-          Object.entries(groups).map(([cat, list]) => (
+          Object.entries(groups).map(([cat, count]) => (
             <section key={cat} className="p-4 border rounded-lg">
-              {/* <h3 className="text-lg font-semibold mb-3">{cat} <span className="text-sm text-gray-400">({list.length})</span></h3> */}
               <ul className="space-y-3">
-                {list.map((p) => {
+                <li>
+                  {/* <Link href={`/blog/${p.slug}`} className={`${cls} text-blue-600 hover:underline`} aria-label={`Open ${p.title}`}>
+                        {p.category ? `[${p.category}] ` : ''}
+                      </Link> */}
+                  <Link href={`/category/${cat}`}>
+                    {cat} ({count})
+                  </Link>
+
+                </li>
+                {/* {cat.map((p) => {
                   const cls = fontClasses[Math.floor(Math.random() * fontClasses.length)];
                   return (
                     <li key={p.slug}>
                       <Link href={`/blog/${p.slug}`} className={`${cls} text-blue-600 hover:underline`} aria-label={`Open ${p.title}`}>
                         {p.category ? `[${p.category}] ` : ''}
                       </Link>
-                      {/* {p.excerpt ? <p className="text-sm text-gray-500">{p.excerpt}</p> : null} */}
                     </li>
                   );
-                })}
+                })} */}
               </ul>
             </section>
           ))

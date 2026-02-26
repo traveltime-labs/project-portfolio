@@ -1,5 +1,6 @@
-import Content from "@/modules/frontend/category/content";
-// 分類
+
+import Content from "@/modules/frontend/posts/Content";
+// 文章列表
 const Post = () => {
   return (
     <Content />

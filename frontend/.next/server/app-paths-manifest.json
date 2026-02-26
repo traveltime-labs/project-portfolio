@@ -1,7 +1,10 @@
 {
   "/[locale]/(frontend)/about/page": "app/[locale]/(frontend)/about/page.js",
-  "/[locale]/(frontend)/articles/page": "app/[locale]/(frontend)/articles/page.js",
+  "/[locale]/(frontend)/blog/[slug]/page": "app/[locale]/(frontend)/blog/[slug]/page.js",
+  "/[locale]/(frontend)/category/[slug]/page": "app/[locale]/(frontend)/category/[slug]/page.js",
   "/[locale]/(frontend)/category/page": "app/[locale]/(frontend)/category/page.js",
   "/[locale]/(frontend)/page": "app/[locale]/(frontend)/page.js",
+  "/[locale]/(frontend)/posts/page": "app/[locale]/(frontend)/posts/page.js",
+  "/[locale]/(frontend)/tags/[slug]/page": "app/[locale]/(frontend)/tags/[slug]/page.js",
   "/[locale]/(frontend)/tags/page": "app/[locale]/(frontend)/tags/page.js"
 }

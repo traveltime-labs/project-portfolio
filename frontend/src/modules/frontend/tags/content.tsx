@@ -10,15 +10,6 @@ import path from "path";
 import matter from "gray-matter";
 import Link from "next/link";
 
-interface PostMeta {
-  slug: string;
-  title?: string;
-  date?: string;
-  category?: string;
-  excerpt?: string;
-  tags? : string[] | string;
-}
-
 function findPostsDir() {
   const tryPaths = [
     path.join(process.cwd(), "src", "content", "posts"),
@@ -30,6 +21,7 @@ function findPostsDir() {
   return null;
 }
 
+// 讀取 meta 取得資料
 function getAllPosts(): PostMeta[] {
   const postsDir = findPostsDir();
   if (!postsDir) return [];
@@ -53,43 +45,43 @@ function getAllPosts(): PostMeta[] {
   return posts;
 }
 
+// 字體大小
 const fontClasses = ["text-sm", "text-base", "text-lg", "text-xl", "text-2xl"];
 
 const Content = () => {
   const posts = getAllPosts();
 
-  // group by category
-  const groups: Record<string, PostMeta[]> = {};
-  posts.forEach((p) => {
-    const tags = (p.tags || "uncategorized").toString();
-    if (!groups[tags]) groups[tags] = [];
-    groups[tags].push(p);
-  });
+  const tagGroups = posts.reduce((acc, post) => {
+    // 1. 確保 tags 永遠是陣列 (預防部署後因為某篇 md 沒寫 tags 而當機)
+    const tags = Array.isArray(post.tags) ? post.tags : ["uncategorized"];
+
+    tags.forEach((tag) => {
+      // 2. 統一套用小寫，避免 React vs react 的重複問題
+      const normalizedTag = tag.toLowerCase().trim();
+
+      // 3. 累加計數
+      acc[normalizedTag] = (acc[normalizedTag] || 0) + 1;
+    });
+
+    return acc;
+  }, {} as Record<string, number>);
+
+  console.log(tagGroups)
 
   return (
     <div className="container mx-auto py-8">
       <h2 className="text-2xl font-bold mb-6">Tags</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {Object.keys(groups).length === 0 ? (
+        {Object.keys(tagGroups).length === 0 ? (
           <div className="text-sm text-gray-500">No posts found.</div>
         ) : (
-          Object.entries(groups).map(([cat, list]) => (
-            <section key={cat} className="p-4 border rounded-lg">
-              {/* <h3 className="text-lg font-semibold mb-3">{cat} <span className="text-sm text-gray-400">({list.length})</span></h3> */}
-              <ul className="space-y-3">
-                {list.map((p) => {
-                  const cls = fontClasses[Math.floor(Math.random() * fontClasses.length)];
-                  return (
-                    <li key={p.slug}>
-                      <Link href={`/blog/${p.slug}`} className={`${cls} text-blue-600 hover:underline`} aria-label={`Open ${p.title}`}>
-                        {p.tags ? `[${p.tags}] ` : ''}
-                      </Link>
-                      {/* {p.excerpt ? <p className="text-sm text-gray-500">{p.excerpt}</p> : null} */}
-                    </li>
-                  );
-                })}
-              </ul>
-            </section>
+          Object.entries(tagGroups).map(([tag, count]) => (
+            <div key={tag} className="text-sm">
+
+              <Link href={`/tags/${tag}`}>
+                {tag} ({count})
+              </Link>
+            </div>
           ))
         )}
       </div>

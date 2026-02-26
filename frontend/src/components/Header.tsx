@@ -38,7 +38,7 @@ const header = ({ toggleSidebar, isSidebarOpen }: HeaderProps) => {
     const t = useTranslations();
 
     return (
-        <header className=" sticky top-0 left-0 right-0  bg-white dark:bg-black/50 backdrop-blur-sm z-50 w-full">
+        <header className="fixed top-0 left-0 right-0  bg-white dark:bg-black/50 backdrop-blur-sm z-50 w-full">
             <div className=" py-3 px-4 lg:max-w-[1600px] w-full flex items-center justify-between mx-auto">
                 <h1 className=" font-bold text-dark dark:text-white transition-colors">
                     <Link href="/">{t("HomePage.title")}</Link>

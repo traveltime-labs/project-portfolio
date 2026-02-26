@@ -11,5 +11,11 @@ tags: ["Next.js", "Tailwind", "MDX"]
 ---
 
 
+## 分類及標籤
+
+分類: "frontend", "backend", "android", "ios", "ui", "DB"
+標籤: "TailwindCSS", "React", "Vue", "nodeJS", "python", ".netcore", "SQL", "Postgresql", "Next.js"
+
+
 ## 參考範例
 [小麥部落格](https://ayugioh2003.github.io/archives/)

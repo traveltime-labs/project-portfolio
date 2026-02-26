@@ -38,5 +38,12 @@ type LoginReq = {
     password: string
 }
 
-
+interface PostMeta {
+  slug: string;
+  title?: string;
+  date?: string;
+  category?: string;
+  excerpt?: string;
+  tags? : string[] | string;
+}
 

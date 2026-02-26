@@ -745,11 +745,6 @@
     position: relative;
   }
 
-  .sticky {
-    position: -webkit-sticky;
-    position: sticky;
-  }
-
   .inset-0 {
     inset: calc(var(--spacing) * 0);
   }
@@ -1948,20 +1943,12 @@
     margin-bottom: calc(var(--spacing) * 20);
   }
 
-  .mb-30 {
-    margin-bottom: calc(var(--spacing) * 30);
-  }
-
   .mb-\[0\.5em\] {
     margin-bottom: .5em;
   }
 
   .ml-2 {
     margin-left: calc(var(--spacing) * 2);
-  }
-
-  .ml-10 {
-    margin-left: calc(var(--spacing) * 10);
   }
 
   .ml-auto {
@@ -2095,10 +2082,6 @@
     height: 1.15rem;
   }
 
-  .h-\[10px\] {
-    height: 10px;
-  }
-
   .h-\[12px\] {
     height: 12px;
   }
@@ -2219,10 +2202,6 @@
     width: 3px;
   }
 
-  .w-\[10px\] {
-    width: 10px;
-  }
-
   .w-\[12px\] {
     width: 12px;
   }
@@ -2341,8 +2320,18 @@
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
 
+  .-translate-x-full {
+    --tw-translate-x: -100%;
+    translate: var(--tw-translate-x) var(--tw-translate-y);
+  }
+
   .-translate-x-px {
     --tw-translate-x: -1px;
+    translate: var(--tw-translate-x) var(--tw-translate-y);
+  }
+
+  .translate-x-0 {
+    --tw-translate-x: calc(var(--spacing) * 0);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
 
@@ -2400,6 +2389,14 @@
 
   .scroll-my-1 {
     scroll-margin-block: calc(var(--spacing) * 1);
+  }
+
+  .list-inside {
+    list-style-position: inside;
+  }
+
+  .list-disc {
+    list-style-type: disc;
   }
 
   .list-none {
@@ -2975,6 +2972,10 @@
     padding-top: calc(var(--spacing) * 4);
   }
 
+  .pt-25 {
+    padding-top: calc(var(--spacing) * 25);
+  }
+
   .pr-2 {
     padding-right: calc(var(--spacing) * 2);
   }
@@ -2989,10 +2990,6 @@
 
   .pb-10 {
     padding-bottom: calc(var(--spacing) * 10);
-  }
-
-  .pb-20 {
-    padding-bottom: calc(var(--spacing) * 20);
   }
 
   .pb-30 {
@@ -3140,6 +3137,10 @@
     color: var(--color-blue-400);
   }
 
+  .text-blue-500 {
+    color: var(--color-blue-500);
+  }
+
   .text-blue-600 {
     color: var(--color-blue-600);
   }
@@ -3249,12 +3250,20 @@
     text-underline-offset: 4px;
   }
 
+  .opacity-0 {
+    opacity: 0;
+  }
+
   .opacity-50 {
     opacity: .5;
   }
 
   .opacity-70 {
     opacity: .7;
+  }
+
+  .opacity-100 {
+    opacity: 1;
   }
 
   .shadow {

@@ -56,21 +56,21 @@ export default function InnerSideBar() {
       </div>
 
       {/* Search */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-3">
-        <label className="block text-xs text-slate-500 mb-2">搜尋文章</label>
+      <div className="bg-white dark:bg-slate-800 rounded-2xl">
+        <label className="block text-xs text-slate-500 mb-2 trasnition-colors">搜尋文章</label>
         <div className="flex">
-          <input placeholder="輸入關鍵字" className="flex-1 rounded-l-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none" />
+          <input placeholder="輸入關鍵字" className="dark:bg-slate-800 flex-1 rounded-l-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-sm focus:outline-none" />
           <button className="bg-blue-600 text-white px-3 py-2 rounded-r-lg text-sm">搜尋</button>
         </div>
       </div>
 
       {/* Categories */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-4 hidden lg:block">
-        <h4 className="text-sm font-semibold mb-3">文章分類</h4>
+      <div className="bg-white border dark:bg-slate-800  border-slate-200 rounded-2xl p-4 hidden lg:block">
+        <h4 className="text-sm transition-colors font-semibold mb-3">文章分類</h4>
         <ul className="space-y-2 text-sm">
           {categories.map((c) => (
             <li key={c} className="flex items-center justify-between">
-              <Link href={`/?category=${encodeURIComponent(c)}`} className="text-slate-700 hover:text-blue-600">{c}</Link>
+              <Link href={`/?category=${encodeURIComponent(c)}`} className="text-slate-700 transition-colors hover:text-blue-600">{c}</Link>
               <span className="text-xs text-slate-400">3</span>
             </li>
           ))}
@@ -78,17 +78,17 @@ export default function InnerSideBar() {
       </div>
 
       {/* Recent posts (placeholder) */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-4 hidden lg:block">
-        <h4 className="text-sm font-semibold mb-3">近期文章</h4>
+      <div className="bg-white dark:bg-slate-800  border border-slate-200 rounded-2xl p-4 hidden lg:block">
+        <h4 className="text-sm transition-colors font-semibold mb-3">近期文章</h4>
         <ul className="space-y-2 text-sm text-slate-700">
           <li>
-            <Link href="/blog/testRead" className="hover:text-blue-600">如何建立一個乾淨的前端專案結構</Link>
+            <Link href="/blog/testRead" className="hover:text-blue-600 transition-colors">如何建立一個乾淨的前端專案結構</Link>
           </li>
           <li>
-            <Link href="/blog/testRead2" className="hover:text-blue-600">用 Vite + React 加速開發</Link>
+            <Link href="/blog/testRead2" className="hover:text-blue-600 transition-colors">用 Vite + React 加速開發</Link>
           </li>
           <li>
-            <Link href="/blog/testRead3" className="hover:text-blue-600">部署與 CI/CD 快速入門</Link>
+            <Link href="/blog/testRead3" className="hover:text-blue-600 transition-colors">部署與 CI/CD 快速入門</Link>
           </li>
         </ul>
       </div>

@@ -1,9 +1,3 @@
-/**
-  modules: 負責「組合這個頁面的一些功能區塊」
-  ex: 組合家具（PostList, CommentBtn），這房間只屬於這個房子
-  * 
- */
-
 import { BsTelephoneFill } from "react-icons/bs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";

@@ -69,7 +69,7 @@ export default function FrontendUIWrapper({ children }: { children: React.ReactN
         id="main-content"
       >
         <Header toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
-         <div className="max-w-400 mx-auto px-4 pt-25">
+         <div className="max-w-400 mx-auto px-4 pt-25 h-[calc(100%-160px)]">
               {isSidebarOpen && <Sidebar isOpen={isSidebarOpen} />}
 
               <div className="flex flex-col-reverse lg:flex-row">

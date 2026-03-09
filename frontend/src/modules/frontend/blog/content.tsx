@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { MDXRemote } from 'next-mdx-remote/rsc'; // 注意：App Router 使用 /rsc 版本
+import remarkGfm from 'remark-gfm';
+import remarkSupersub from 'remark-supersub';
 
 /*
 matter(fileContent)：將 Markdown 最上方的 --- 區域拆開。data 變數裡會有 title 和 category，而 content 就是剩下的文章本體。
@@ -12,9 +14,7 @@ prose class：這來自你裝的 @tailwindcss/typography。Markdown 轉出來的
 
 // 部落格文章內文
 const Content = async ({ params }: { params: Promise<{ slug: string }> }) => {
-  console.log(params)
   const { slug } = await params;
-  console.log(slug)
 
   // 1. 取得檔案路徑
   const filePath = path.join(process.cwd(), 'src', 'content', 'posts', `${slug}.md`);
@@ -45,17 +45,23 @@ const Content = async ({ params }: { params: Promise<{ slug: string }> }) => {
         lg:prose-xl 
         dark:prose-invert 
         max-w-none
-        prose 
-        /* 設定連結顏色 */
         prose-a:text-blue-600 
-        /* 設定滑鼠懸停顏色 */
         hover:prose-a:text-blue-500 
-        /* 取消底線 */
         prose-a:no-underline 
-        /* 增加加粗效果 */
         prose-a:font-semibold
+        prose-table:block
+        prose-table:overflow-x-auto
+        prose-th:font-semibold
+        prose-td:align-top
         ">
-        <MDXRemote source={content} />
+        <MDXRemote
+          source={content}
+          options={{
+            mdxOptions: {
+              remarkPlugins: [remarkGfm, remarkSupersub],
+            },
+          }}
+        />
       </article>
     </main>
   );

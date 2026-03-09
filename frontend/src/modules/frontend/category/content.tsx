@@ -1,8 +1,13 @@
 // 標籤分類：從 src/content/posts 撈文章、依 category 分組並顯示
 import { Link } from "@/i18n/routing"; // 注意要用我們自定義的 Link
 
+type CategoryPost = {
+  slug: string;
+  category?: string;
+};
+
 // 組合內容
-const Content = ({ posts }: { posts: Post[] }) => {
+const Content = ({ posts }: { posts: CategoryPost[] }) => {
 
   const groups = posts.reduce((acc, post) => {
     const cat = post.category || "uncategorized";

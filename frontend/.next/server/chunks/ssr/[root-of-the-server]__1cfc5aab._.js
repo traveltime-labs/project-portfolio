@@ -37,7 +37,12 @@ module.exports = mod;
 "use strict";
 
 __turbopack_context__.s({
-    "getAllPosts": ()=>getAllPosts
+    "getAllPosts": ()=>getAllPosts,
+    "getPostsByCategory": ()=>getPostsByCategory,
+    "getPostsByTag": ()=>getPostsByTag,
+    "getRecentPosts": ()=>getRecentPosts,
+    "getTagCounts": ()=>getTagCounts,
+    "searchPosts": ()=>searchPosts
 });
 var __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/fs [external] (fs, cjs)");
 var __TURBOPACK__imported__module__$5b$externals$5d2f$path__$5b$external$5d$__$28$path$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/path [external] (path, cjs)");
@@ -45,42 +50,93 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gray$2d$matt
 ;
 ;
 ;
-const postsDirectory = __TURBOPACK__imported__module__$5b$externals$5d2f$path__$5b$external$5d$__$28$path$2c$__cjs$29$__["default"].join(process.cwd(), 'src', 'content', 'posts');
+function findPostsDir() {
+    const tryPaths = [
+        __TURBOPACK__imported__module__$5b$externals$5d2f$path__$5b$external$5d$__$28$path$2c$__cjs$29$__["default"].join(process.cwd(), 'src', 'content', 'posts'),
+        __TURBOPACK__imported__module__$5b$externals$5d2f$path__$5b$external$5d$__$28$path$2c$__cjs$29$__["default"].join(process.cwd(), 'frontend', 'src', 'content', 'posts')
+    ];
+    for (const p of tryPaths){
+        if (__TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].existsSync(p)) return p;
+    }
+    return null;
+}
+const parseDateValue = (value)=>{
+    if (!value) return 0;
+    const timestamp = new Date(value).getTime();
+    return Number.isNaN(timestamp) ? 0 : timestamp;
+};
+const normalizeText = (value)=>value.toLowerCase().trim();
 function getAllPosts() {
-    const fileNames = __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].readdirSync(postsDirectory);
+    const postsDirectory = findPostsDir();
+    if (!postsDirectory) return [];
+    const fileNames = __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].readdirSync(postsDirectory).filter((f)=>f.endsWith('.md') || f.endsWith('.mdx'));
     const allPostsData = fileNames.map((fileName)=>{
-        console.log(fileName);
-        const slug = fileName.replace(/\.md$/, '');
+        const slug = fileName.replace(/\.mdx?$/, '');
         const fullPath = __TURBOPACK__imported__module__$5b$externals$5d2f$path__$5b$external$5d$__$28$path$2c$__cjs$29$__["default"].join(postsDirectory, fileName);
         const fileContents = __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].readFileSync(fullPath, 'utf8');
         const { data } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gray$2d$matter$2f$index$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"])(fileContents);
+        const safeCategory = typeof data.category === 'string' ? data.category : '未分類';
+        const safeExcerpt = typeof data.excerpt === 'string' ? data.excerpt : '這是一篇關於...';
+        const safeTitle = typeof data.title === 'string' ? data.title : slug;
+        const safeDate = typeof data.date === 'string' ? data.date : '';
+        const safeTags = Array.isArray(data.tags) ? data.tags.map((tag)=>String(tag)) : typeof data.tags === 'string' ? [
+            data.tags
+        ] : [];
         return {
             slug,
-            title: data.title,
-            date: data.date,
-            category: data.category,
-            excerpt: data.excerpt || "這是一篇關於...",
+            title: safeTitle,
+            date: safeDate,
+            category: safeCategory,
+            excerpt: safeExcerpt,
+            tags: safeTags,
             cover: data.cover || "/images/default-cover.jpg"
         };
     });
     // 按日期排序
-    return allPostsData.sort((a, b)=>a.date < b.date ? 1 : -1);
-} /*
-分類: 前端, 後端, 資料庫
-標籤: vue scss tailwind postsql react javascreipt typescript ...
-
-
-側邊欄位:
-
-關於我摘要
-廣告
-排行榜
-標籤雲
-廣告
-
-
-
-*/ 
+    return allPostsData.sort((a, b)=>parseDateValue(b.date) - parseDateValue(a.date));
+}
+function getPostsByCategory(category) {
+    const target = normalizeText(category);
+    if (!target) return getAllPosts();
+    return getAllPosts().filter((post)=>normalizeText(post.category || '未分類') === target);
+}
+function getRecentPosts(limit = 5) {
+    return getAllPosts().slice(0, Math.max(0, limit));
+}
+function searchPosts(keyword, limit = 6) {
+    const target = normalizeText(keyword);
+    if (!target) return [];
+    const matched = getAllPosts().filter((post)=>{
+        const fields = [
+            post.title || '',
+            post.excerpt || '',
+            post.category || '',
+            post.slug || '',
+            ...post.tags || []
+        ];
+        return fields.some((field)=>normalizeText(String(field)).includes(target));
+    });
+    return matched.slice(0, Math.max(0, limit));
+}
+function getPostsByTag(tag) {
+    const target = normalizeText(tag);
+    if (!target) return [];
+    return getAllPosts().filter((post)=>{
+        const tags = Array.isArray(post.tags) ? post.tags : [];
+        return tags.some((item)=>normalizeText(item) === target);
+    });
+}
+function getTagCounts() {
+    return getAllPosts().reduce((acc, post)=>{
+        const tags = Array.isArray(post.tags) ? post.tags : [];
+        tags.forEach((tag)=>{
+            const normalizedTag = normalizeText(tag);
+            if (!normalizedTag) return;
+            acc[normalizedTag] = (acc[normalizedTag] || 0) + 1;
+        });
+        return acc;
+    }, {});
+}
 }),
 "[project]/src/modules/frontend/home/content.tsx [app-rsc] (ecmascript)": ((__turbopack_context__) => {
 "use strict";

@@ -1,9 +1,8 @@
 import { Link } from "@/i18n/routing"; // 注意要用我們自定義的 Link
-import { getAllPosts } from "@/hooks/blogLists";
 
 interface DetailContentProps {
   slug: string;
-  posts: any[]; // 這裡可以根據實際的 post 結構定義更具體的類型
+  posts: Array<{ slug: string; title?: string }>;
 }
 
 // 標籤分類點選後列表頁面

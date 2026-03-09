@@ -5,33 +5,38 @@ import { Link } from "@/i18n/routing";
 import { FaGithub } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaFacebookSquare } from "react-icons/fa";
+import Fuse from "fuse.js";
 
 interface Post {
   slug: string;
-  title?: string;
+  title: string;
   date?: string;
   category?: string;
   excerpt?: string;
+  tags?: string[];
   cover?: string;
 }
 
+const parseDateValue = (value?: string) => {
+  if (!value) return 0;
+  const timestamp = new Date(value).getTime();
+  return Number.isNaN(timestamp) ? 0 : timestamp;
+};
+
 export default function InnerSideBar() {
-  const categories = ["程式語言", "框架", "工具", "專案進度"];
   const [searchInput, setSearchInput] = useState("");
   const [allPosts, setAllPosts] = useState<Post[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   
   // 從API獲取文章列表
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch('/api/posts');
+        const response = await fetch('/api/blog/posts');
         const result = await response.json();
         setAllPosts(result.data || []);
       } catch (error) {
         console.error('Error fetching posts:', error);
-      } finally {
-        setIsLoading(false);
       }
     };
     
@@ -39,18 +44,39 @@ export default function InnerSideBar() {
   }, []);
   
   // 模糊搜尋邏輯
+  const fuse = useMemo(
+    () =>
+      new Fuse(allPosts, {
+        threshold: 0.4,
+        ignoreLocation: true,
+        keys: ["title", "excerpt", "category", "slug", "tags"],
+      }),
+    [allPosts],
+  );
+
   const searchResults = useMemo(() => {
     if (!searchInput.trim()) return [];
-    
-    const query = searchInput.toLowerCase();
-    return allPosts.filter((post) => {
-      const title = (post.title || "").toLowerCase();
-      const category = (post.category || "").toLowerCase();
-      const excerpt = (post.excerpt || "").toLowerCase();
-      
-      return title.includes(query) || category.includes(query) || excerpt.includes(query);
-    });
-  }, [searchInput, allPosts]);
+
+    return fuse
+      .search(searchInput.trim())
+      .slice(0, 6)
+      .map((item) => item.item);
+  }, [searchInput, fuse]);
+
+  const categories = useMemo(() => {
+    return allPosts.reduce((acc, post) => {
+      const category = post.category || '未分類';
+      acc[category] = (acc[category] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+  }, [allPosts]);
+
+  const recentPosts = useMemo(() => {
+    return [...allPosts]
+      .sort((a, b) => parseDateValue(b.date) - parseDateValue(a.date))
+      .slice(0, 5);
+  }, [allPosts]);
+
   const socials = [
     { name: 'GitHub', href: 'https://github.com', icon: <FaGithub /> },
     { name: 'Linkedin', href: 'https://linkedin.com', icon: <FaLinkedin /> },
@@ -105,20 +131,33 @@ export default function InnerSideBar() {
       {/* Search */}
       <div className="rounded-2xl">
         <label className="block text-xs text-slate-500 mb-2 trasnition-colors">搜尋文章</label>
-        <div className="flex relative">
+        <div className="relative">
           <input
             placeholder="輸入關鍵字"
             value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            className="dark:bg-slate-800 flex-1 rounded-l-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-sm focus:outline-none"
+            onChange={(e) => {
+              setSearchInput(e.target.value);
+              setIsSearchOpen(true);
+            }}
+            onFocus={() => setIsSearchOpen(true)}
+            onBlur={() => setTimeout(() => setIsSearchOpen(false), 120)}
+            className="dark:bg-slate-800 w-full rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-sm focus:outline-none"
           />
-          {searchInput && (
+
+          {isSearchOpen && searchInput.trim() && (
             <ul className="absolute top-10 left-0 right-0 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg z-10 max-h-64 overflow-y-auto">
               {searchResults.length > 0 ? (
                 searchResults.map((post) => (
                   <li key={post.slug} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 cursor-pointer border-b border-slate-200 dark:border-slate-700 last:border-b-0">
-                    <Link href={`/blog/${post.slug}`} className="block text-sm text-slate-700 dark:text-slate-300">
-                      <div className="font-medium">{post.title || post.slug}</div>
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="block text-sm text-slate-700 dark:text-slate-300"
+                      onClick={() => {
+                        setSearchInput("");
+                        setIsSearchOpen(false);
+                      }}
+                    >
+                      <div className="font-medium">{post.title}</div>
                       {post.category && <div className="text-xs text-slate-500">[{post.category}]</div>}
                     </Link>
                   </li>
@@ -128,8 +167,6 @@ export default function InnerSideBar() {
               )}
             </ul>
           )}
-          
-          <button className="bg-blue-600 text-white px-3 py-2 rounded-r-lg text-sm hover:bg-blue-700">搜尋</button>
         </div>
       </div>
 
@@ -137,10 +174,10 @@ export default function InnerSideBar() {
       <div className="bg-white border dark:bg-slate-800  border-slate-200 rounded-2xl p-4 hidden lg:block">
         <h4 className="text-sm transition-colors font-semibold mb-3">文章分類</h4>
         <ul className="space-y-2 text-sm">
-          {categories.map((c) => (
-            <li key={c} className="flex items-center justify-between">
-              <Link href={`/?category=${encodeURIComponent(c)}`} className="text-slate-700 transition-colors hover:text-blue-600">{c}</Link>
-              <span className="text-xs text-slate-400">3</span>
+          {Object.entries(categories).map(([category, count]) => (
+            <li key={category} className="flex items-center justify-between">
+              <Link href={`/category/${encodeURIComponent(category)}`} className="text-slate-700 transition-colors hover:text-blue-600">{category}</Link>
+              <span className="text-xs text-slate-400">{count}</span>
             </li>
           ))}
         </ul>
@@ -150,15 +187,11 @@ export default function InnerSideBar() {
       <div className="bg-white dark:bg-slate-800  border border-slate-200 rounded-2xl p-4 hidden lg:block">
         <h4 className="text-sm transition-colors font-semibold mb-3">近期文章</h4>
         <ul className="space-y-2 text-sm text-slate-700">
-          <li>
-            <Link href="/blog/testRead" className="hover:text-blue-600 transition-colors">如何建立一個乾淨的前端專案結構</Link>
-          </li>
-          <li>
-            <Link href="/blog/testRead2" className="hover:text-blue-600 transition-colors">用 Vite + React 加速開發</Link>
-          </li>
-          <li>
-            <Link href="/blog/testRead3" className="hover:text-blue-600 transition-colors">部署與 CI/CD 快速入門</Link>
-          </li>
+          {recentPosts.map((post) => (
+            <li key={post.slug}>
+              <Link href={`/blog/${post.slug}`} className="hover:text-blue-600 transition-colors line-clamp-1">{post.title}</Link>
+            </li>
+          ))}
         </ul>
       </div>
 

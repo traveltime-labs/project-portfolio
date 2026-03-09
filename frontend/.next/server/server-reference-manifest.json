@@ -1,17 +1,5 @@
 {
-  "node": {
-    "00708ede14351f21785b38baaa5a07bfffb578c249": {
-      "workers": {
-        "app/[locale]/(frontend)/page": {
-          "moduleId": "[project]/.next-internal/server/app/[locale]/(frontend)/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/hooks/blogLists.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false
-        }
-      },
-      "layer": {
-        "app/[locale]/(frontend)/page": "rsc"
-      }
-    }
-  },
+  "node": {},
   "edge": {},
-  "encryptionKey": "hO+EDPEUte1DxbD2XaarzpJeuV75uKPz2KPHBkHKq2s="
+  "encryptionKey": "o35r0pG1ceTv1neXRG+dfk6J4U/KC8lCRmZoBKETOrA="
 }

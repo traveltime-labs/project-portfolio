@@ -5,85 +5,39 @@
 
 import { Link } from "@/i18n/routing";
 
-interface TimelineItem {
-  date: string;
-  title: string;
-  desc?: string;
-  link?: string;
-}
+type ArticlePost = {
+  slug: string;
+  title?: string;
+  date?: string;
+  category?: string;
+  excerpt?: string;
+};
 
-interface TimelineGroup {
-  year: string;
-  data: TimelineItem[];
-}
-
-const Content: React.FC = () => {
-  const timelineData: TimelineGroup[] = [
-    {
-      year: "2024",
-      data: [
-        { date: "08-24", title: "work1", desc: "work1 - cotnent", link: "" },
-        { date: "08-20", title: "work2", desc: "TEST。", link: "" },
-      ],
-    },
-    {
-      year: "2022",
-      data: [
-        { date: "05-10", title: "work2", desc: "協助多個中小型專案完成前端實作與部署。", link: "/" },
-      ],
-    },
-    {
-      year: "2019",
-      data: [
-        { date: "10-10", title: "work3", desc: "將工作中遇到的問題與解法整理成文章。", link: "/" },
-      ],
-    },
-  ];
+const Content: React.FC<{ posts: ArticlePost[] }> = ({ posts }) => {
+  const formatDate = (date?: string) => {
+    if (!date) return "未提供日期";
+    const d = new Date(date);
+    if (Number.isNaN(d.getTime())) return date;
+    return d.toLocaleDateString("zh-TW", { year: "numeric", month: "2-digit", day: "2-digit" });
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
       <h2 className="text-2xl font-extrabold mb-6">文章列表</h2>
 
-      {timelineData.length > 0 ? (
-        <div className="space-y-10">
-          {timelineData.map((group) => (
-            <section key={group.year} aria-labelledby={`year-${group.year}`}>
-              <h3 id={`year-${group.year}`} className="text-xl font-semibold mb-4">
-                {group.year}
-              </h3>
-
-              <ul className="relative border-l-2 border-gray-200 dark:border-gray-700 pl-6">
-                {group.data.map((item) => (
-                  <li
-                    key={`${group.year}-${item.date}-${item.title}`}
-                    className="mb-6 relative"
-                    aria-label={`${item.title} ${item.date}`}
-                  >
-                    <span className="absolute -left-[31px] top-0 w-3 h-3 bg-white  border-2 border-indigo-500 rounded-full" />
-
-                    <div className="flex flex-col sm:items-start gap-3">
-                      <div className="w-24 flex-shrink-0 text-xs text-gray-500 font-medium">{item.date}</div>
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3">
-                          <h4 className="text-lg font-bold leading-snug">{item.title}</h4>
-                          {item.link ? (
-                            <Link href={item.link} className="text-indigo-600 text-sm hover:underline">
-                              連結
-                            </Link>
-                          ) : null}
-                        </div>
-
-                        {item.desc ? (
-                          <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">{item.desc}</p>
-                        ) : null}
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </section>
+      {posts.length > 0 ? (
+        <ul className="space-y-4">
+          {posts.map((post) => (
+            <li key={post.slug} className="rounded-xl border border-slate-200 p-4">
+              <div className="text-xs text-slate-500 mb-2">{formatDate(post.date)}</div>
+              <Link href={`/blog/${post.slug}`} className="text-lg font-bold hover:text-blue-600">
+                {post.title || post.slug}
+              </Link>
+              <div className="text-xs text-blue-600 mt-2">{post.category || "未分類"}</div>
+              {post.excerpt ? <p className="text-sm text-slate-600 mt-2 line-clamp-3">{post.excerpt}</p> : null}
+            </li>
           ))}
-        </div>
+        </ul>
       ) : (
         <div className="text-gray-500">沒有資料</div>
       )}

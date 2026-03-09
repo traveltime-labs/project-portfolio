@@ -4,23 +4,37 @@
   * 
  */
 
-'use server';
+import { Link } from "@/i18n/routing";
 
-// 標籤分類：從 src/content/posts 撈文章、依 tags 分組並顯示
-import Link from "next/link";
+type TagPost = {
+  slug: string;
+  title?: string;
+  date?: string;
+};
 
+interface DetailContentProps {
+  slug: string;
+  posts: TagPost[];
+}
 
-const Content = () => {
-
-
+const Content = ({ slug, posts }: DetailContentProps) => {
   return (
     <div className="container mx-auto py-8">
-      <h2 className="text-2xl font-bold mb-6">Tags</h2>
-      <ul className="list-disc list-inside">
-        <li><Link href="/post/slug1" className="text-blue-500 hover:underline">文章標題 1</Link></li>
-        <li><Link href="/post/slug2" className="text-blue-500 hover:underline">文章標題 2</Link></li>
-        <li><Link href="/post/slug3" className="text-blue-500 hover:underline">文章標題 3</Link></li>
-      </ul>
+      <h2 className="text-2xl font-bold mb-6">#{slug} 標籤列表</h2>
+
+      {posts.length === 0 ? (
+        <div className="text-sm text-gray-500">No posts found for this tag.</div>
+      ) : (
+        <ul className="list-disc list-inside space-y-2">
+          {posts.map((post) => (
+            <li key={post.slug}>
+              <Link href={`/blog/${post.slug}`} className="text-blue-500 hover:underline">
+                {post.title || post.slug}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

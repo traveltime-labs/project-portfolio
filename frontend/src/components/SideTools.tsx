@@ -12,9 +12,9 @@ const SideTools = ({ toggleChat } : SideToolsProps) => {
             <Button size="icon-lg" className="rounded-full">
                 <FaArrowUp />
             </Button>
-            <Button size="icon-lg" className="rounded-full" onClick={toggleChat}>
+            {/* <Button size="icon-lg" className="rounded-full" onClick={toggleChat}>
                 <SiOpenai/>
-            </Button>
+            </Button> */}
         </div>
     )
 }

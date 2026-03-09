@@ -82,9 +82,9 @@ const header = ({ toggleSidebar, isSidebarOpen }: HeaderProps) => {
                     </div> */}
 
                     {/* 主題切換 */}
-                    {/* <Button variant="ghost" onClick={toggleTheme}>
+                    <Button variant="ghost" onClick={toggleTheme}>
                         {theme === 'light' ? <FaMoon /> : <MdOutlineWbSunny />}
-                    </Button> */}
+                    </Button>
 
                     {/* 語系選單 */}
                     {/* <DropdownMenu>

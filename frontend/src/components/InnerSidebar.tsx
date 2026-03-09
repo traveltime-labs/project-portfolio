@@ -1,17 +1,64 @@
 "use client";
 
+import { useState, useMemo, useEffect } from "react";
 import { Link } from "@/i18n/routing";
 import { FaGithub } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaFacebookSquare } from "react-icons/fa";
 
+interface Post {
+  slug: string;
+  title?: string;
+  date?: string;
+  category?: string;
+  excerpt?: string;
+  cover?: string;
+}
+
 export default function InnerSideBar() {
   const categories = ["程式語言", "框架", "工具", "專案進度"];
+  const [searchInput, setSearchInput] = useState("");
+  const [allPosts, setAllPosts] = useState<Post[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  // 從API獲取文章列表
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch('/api/posts');
+        const result = await response.json();
+        setAllPosts(result.data || []);
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    fetchPosts();
+  }, []);
+  
+  // 模糊搜尋邏輯
+  const searchResults = useMemo(() => {
+    if (!searchInput.trim()) return [];
+    
+    const query = searchInput.toLowerCase();
+    return allPosts.filter((post) => {
+      const title = (post.title || "").toLowerCase();
+      const category = (post.category || "").toLowerCase();
+      const excerpt = (post.excerpt || "").toLowerCase();
+      
+      return title.includes(query) || category.includes(query) || excerpt.includes(query);
+    });
+  }, [searchInput, allPosts]);
   const socials = [
     { name: 'GitHub', href: 'https://github.com', icon: <FaGithub /> },
     { name: 'Linkedin', href: 'https://linkedin.com', icon: <FaLinkedin /> },
     { name: 'Facebook', href: 'https://facebook.com', icon: <FaFacebookSquare /> },
   ];
+
+
+  // search
 
   return (
     <aside className="space-y-6 mt-6 mx-auto container lg:max-w-[300px]">
@@ -56,11 +103,33 @@ export default function InnerSideBar() {
       </div>
 
       {/* Search */}
-      <div className="bg-white dark:bg-slate-800 rounded-2xl">
+      <div className="rounded-2xl">
         <label className="block text-xs text-slate-500 mb-2 trasnition-colors">搜尋文章</label>
-        <div className="flex">
-          <input placeholder="輸入關鍵字" className="dark:bg-slate-800 flex-1 rounded-l-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-sm focus:outline-none" />
-          <button className="bg-blue-600 text-white px-3 py-2 rounded-r-lg text-sm">搜尋</button>
+        <div className="flex relative">
+          <input
+            placeholder="輸入關鍵字"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            className="dark:bg-slate-800 flex-1 rounded-l-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-sm focus:outline-none"
+          />
+          {searchInput && (
+            <ul className="absolute top-10 left-0 right-0 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg z-10 max-h-64 overflow-y-auto">
+              {searchResults.length > 0 ? (
+                searchResults.map((post) => (
+                  <li key={post.slug} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 cursor-pointer border-b border-slate-200 dark:border-slate-700 last:border-b-0">
+                    <Link href={`/blog/${post.slug}`} className="block text-sm text-slate-700 dark:text-slate-300">
+                      <div className="font-medium">{post.title || post.slug}</div>
+                      {post.category && <div className="text-xs text-slate-500">[{post.category}]</div>}
+                    </Link>
+                  </li>
+                ))
+              ) : (
+                <li className="p-2 text-sm text-slate-500 text-center">未找到相關文章</li>
+              )}
+            </ul>
+          )}
+          
+          <button className="bg-blue-600 text-white px-3 py-2 rounded-r-lg text-sm hover:bg-blue-700">搜尋</button>
         </div>
       </div>
 

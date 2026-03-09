@@ -59,11 +59,10 @@ const Content: React.FC = () => {
                     className="mb-6 relative"
                     aria-label={`${item.title} ${item.date}`}
                   >
-                    <span className="absolute -left-3 top-2 w-3 h-3 bg-white border-2 border-indigo-500 rounded-full" />
+                    <span className="absolute -left-[31px] top-0 w-3 h-3 bg-white  border-2 border-indigo-500 rounded-full" />
 
-                    <div className="flex flex-col sm:flex-row sm:items-start gap-3">
+                    <div className="flex flex-col sm:items-start gap-3">
                       <div className="w-24 flex-shrink-0 text-xs text-gray-500 font-medium">{item.date}</div>
-
                       <div className="flex-1">
                         <div className="flex items-center gap-3">
                           <h4 className="text-lg font-bold leading-snug">{item.title}</h4>

@@ -4,6 +4,8 @@
   * 
  */
 
+'use server';
+
 // 標籤分類：從 src/content/posts 撈文章、依 tags 分組並顯示
 import fs from "fs";
 import path from "path";
@@ -70,7 +72,7 @@ const Content = () => {
 
   return (
     <div className="container mx-auto py-8">
-      <h2 className="text-2xl font-bold mb-6">Tags</h2>
+      <h2 className="text-2xl font-bold mb-6">標籤列表</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {Object.keys(tagGroups).length === 0 ? (
           <div className="text-sm text-gray-500">No posts found.</div>

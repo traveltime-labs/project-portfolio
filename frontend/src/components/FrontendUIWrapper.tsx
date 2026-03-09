@@ -36,7 +36,7 @@ export default function FrontendUIWrapper({ children }: { children: React.ReactN
   if (!mounted) return null;
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
-
+  const closeSidebar = () => setIsSidebarOpen(false);
   const toggleChat = () => {
     const chatPanel = chatPanelRef.current
     if (chatPanel) {
@@ -70,7 +70,7 @@ export default function FrontendUIWrapper({ children }: { children: React.ReactN
       >
         <Header toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
          <div className="max-w-400 mx-auto px-4 pt-25 h-[calc(100%-160px)]">
-              {isSidebarOpen && <Sidebar isOpen={isSidebarOpen} />}
+              {isSidebarOpen && <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />}
 
               <div className="flex flex-col-reverse lg:flex-row">
                 <main className="w-full lg:mx-auto h-auto min-h-screen max-w-[1600px] py-4">

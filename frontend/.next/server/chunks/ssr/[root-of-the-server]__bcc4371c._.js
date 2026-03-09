@@ -104,14 +104,14 @@ const Content = ()=>{
                                         "aria-label": `${item.title} ${item.date}`,
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "absolute -left-3 top-2 w-3 h-3 bg-white border-2 border-indigo-500 rounded-full"
+                                                className: "absolute -left-[31px] top-0 w-3 h-3 bg-white  border-2 border-indigo-500 rounded-full"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/frontend/articles/content.tsx",
                                                 lineNumber: 62,
                                                 columnNumber: 21
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "flex flex-col sm:flex-row sm:items-start gap-3",
+                                                className: "flex flex-col sm:items-start gap-3",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "w-24 flex-shrink-0 text-xs text-gray-500 font-medium",
@@ -132,7 +132,7 @@ const Content = ()=>{
                                                                         children: item.title
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/modules/frontend/articles/content.tsx",
-                                                                        lineNumber: 69,
+                                                                        lineNumber: 68,
                                                                         columnNumber: 27
                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                     item.link ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$i18n$2f$routing$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Link"], {
@@ -141,13 +141,13 @@ const Content = ()=>{
                                                                         children: "連結"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/modules/frontend/articles/content.tsx",
-                                                                        lineNumber: 71,
+                                                                        lineNumber: 70,
                                                                         columnNumber: 29
                                                                     }, ("TURBOPACK compile-time value", void 0)) : null
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/modules/frontend/articles/content.tsx",
-                                                                lineNumber: 68,
+                                                                lineNumber: 67,
                                                                 columnNumber: 25
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             item.desc ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -155,13 +155,13 @@ const Content = ()=>{
                                                                 children: item.desc
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/modules/frontend/articles/content.tsx",
-                                                                lineNumber: 78,
+                                                                lineNumber: 77,
                                                                 columnNumber: 27
                                                             }, ("TURBOPACK compile-time value", void 0)) : null
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/modules/frontend/articles/content.tsx",
-                                                        lineNumber: 67,
+                                                        lineNumber: 66,
                                                         columnNumber: 23
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
@@ -196,7 +196,7 @@ const Content = ()=>{
                 children: "沒有資料"
             }, void 0, false, {
                 fileName: "[project]/src/modules/frontend/articles/content.tsx",
-                lineNumber: 89,
+                lineNumber: 88,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0))
         ]

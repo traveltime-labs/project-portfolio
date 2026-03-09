@@ -1,19 +1,13 @@
 "use client";
 
 //import { usePathname } from "next/navigation";
-//import Link from "next/link";
+import { sidebarLink } from "@/config/sidebarLinkSetting";
 import { Link, usePathname } from "@/i18n/routing";
 
-const routeMap: Record<string, string> = {
-    "": "首頁",
-    tools: "小工具",
-    text: "文字統計小工具",
-    generatePassword: "隨機密碼產生器",
-};
-  
   export default function Breadcrumb() {
     const pathname = usePathname(); 
     const segments = pathname.split("/").filter(Boolean);
+    let route = [...sidebarLink.map(item => item.link)];
   
     return (
       <nav className=" border-y-1 py-3 px-4 text-sm text-gray-500 w-full mx-auto bg-white dark:bg-black/20 ">
@@ -25,7 +19,7 @@ const routeMap: Record<string, string> = {
               <span key={href}>
                 <span className="mx-2"> {" / "} </span>
                 <span className="text-blue-400" >
-                  {routeMap[seg] ?? seg}
+                  {route.includes(href) ? sidebarLink.find(item => item.link === href)?.name ?? seg : seg}
                 </span>
                 {/* <Link className="text-blue-400" href={href}>
                   {routeMap[seg] ?? seg}

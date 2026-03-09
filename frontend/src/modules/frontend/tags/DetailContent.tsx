@@ -4,10 +4,9 @@
   * 
  */
 
+'use server';
+
 // 標籤分類：從 src/content/posts 撈文章、依 tags 分組並顯示
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
 import Link from "next/link";
 
 

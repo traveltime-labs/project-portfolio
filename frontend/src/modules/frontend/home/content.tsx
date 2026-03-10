@@ -1,15 +1,5 @@
-
-// import PostList from "../post-list";
-
 import { getAllPosts } from '@/hooks/blogLists';
 import { Link } from "@/i18n/routing";
-import Image from "next/image";
-
-/**
-  modules: 負責「組合這個頁面的一些功能區塊」
-  ex: 組合家具（PostList, CommentBtn），這房間只屬於這個房子
-  * 
- */
 
 const Content = () => {
   const posts = getAllPosts();
@@ -25,12 +15,6 @@ const Content = () => {
 
   return (
     <div className="container mx-auto">
-      {/* <section className="text-center py-12">
-        <h1 className="text-3xl sm:text-4xl font-extrabold">W's Blog</h1>
-        <p className="text-slate-600 mt-2">分享技術、筆記與專案進度</p>
-        <p className="text-slate-600 mt-2">TEST 練習</p>
-      </section> */}
-
       <div className="mx-auto py-8 lg:pr-8">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-lg font-semibold">最新文章</h2>
@@ -46,12 +30,6 @@ const Content = () => {
             {posts.map((post) => (
               <Link href={`/blog/${post.slug}`} key={post.slug} className="group">
                 <article className="h-full bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-lg transform transition duration-200 hover:-translate-y-1">
-                  {/* {post.image && (
-                    <div className="relative h-40 w-full">
-                      <Image src={post.image} alt={post.title} fill className="object-cover" />
-                    </div>
-                  )} */}
-
                   <div className="p-5">
                     <div className="flex items-center justify-between mb-3">
                       <div className="text-sm text-blue-600 font-medium bg-blue-50 px-2 py-1 rounded">

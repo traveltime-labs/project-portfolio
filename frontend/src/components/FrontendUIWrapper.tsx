@@ -16,6 +16,7 @@ import Footer from "@/components/Footer";
 import SideTools from "@/components/SideTools"
 import AIChat from "@/components/AIChat"
 import InnerSidebar from "@/components/InnerSidebar"
+import { BreadcrumbProvider } from "@/providers/breadcrumb-provider"
 
 
 import {
@@ -56,6 +57,7 @@ export default function FrontendUIWrapper({ children }: { children: React.ReactN
 
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+    <BreadcrumbProvider>
 
     <ResizablePanelGroup
       direction="horizontal"
@@ -73,10 +75,10 @@ export default function FrontendUIWrapper({ children }: { children: React.ReactN
               {isSidebarOpen && <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />}
 
               <div className="flex flex-col-reverse lg:flex-row">
-                <main className="w-full lg:mx-auto h-auto min-h-screen max-w-[1600px] py-4">
+                <main className="w-full lg:mx-auto h-auto min-h-screen max-w-400 py-4">
                   {children}
                 </main>
-                <div className="min-w-[300px]">
+                <div className="min-w-75">
                   <InnerSidebar/>
                 </div>
 
@@ -98,7 +100,7 @@ export default function FrontendUIWrapper({ children }: { children: React.ReactN
           overflow: 'hidden'
         }}
         // 移除 hidden class，改用自訂樣式
-        className="border-1 bg-transparent hover:bg-accent transition-colors"
+        className="border bg-transparent hover:bg-accent transition-colors"
       />
 
       <ResizablePanel 
@@ -117,6 +119,7 @@ export default function FrontendUIWrapper({ children }: { children: React.ReactN
       </ResizablePanel>
 
     </ResizablePanelGroup>
+    </BreadcrumbProvider>
     </ThemeProvider>
   );
 }

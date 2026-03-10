@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prettier": "prettier --write ./src"
+    "prettier": "prettier --write ./src",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.4",
@@ -50,6 +52,7 @@
     "uuid": "^13.0.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.54.2",
     "@tailwindcss/postcss": "^4",
     "@types/formidable": "^3.4.6",
     "@types/node": "^20",

@@ -141,7 +141,6 @@ function getTagCounts() {
 "[project]/src/modules/frontend/home/content.tsx [app-rsc] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-// import PostList from "../post-list";
 __turbopack_context__.s({
     "default": ()=>__TURBOPACK__default__export__
 });
@@ -151,11 +150,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$i18n$2f$routing$2e$ts
 ;
 ;
 ;
-/**
-  modules: 負責「組合這個頁面的一些功能區塊」
-  ex: 組合家具（PostList, CommentBtn），這房間只屬於這個房子
-  * 
- */ const Content = ()=>{
+const Content = ()=>{
     const posts = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$blogLists$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getAllPosts"])();
     const formatDate = (d)=>{
         if (!d) return '';
@@ -182,7 +177,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$i18n$2f$routing$2e$ts
                             children: "最新文章"
                         }, void 0, false, {
                             fileName: "[project]/src/modules/frontend/home/content.tsx",
-                            lineNumber: 36,
+                            lineNumber: 20,
                             columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -194,13 +189,13 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$i18n$2f$routing$2e$ts
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/modules/frontend/home/content.tsx",
-                            lineNumber: 37,
+                            lineNumber: 21,
                             columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/modules/frontend/home/content.tsx",
-                    lineNumber: 35,
+                    lineNumber: 19,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0)),
                 posts.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -208,7 +203,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$i18n$2f$routing$2e$ts
                     children: "目前尚無文章，稍後再回來看看～"
                 }, void 0, false, {
                     fileName: "[project]/src/modules/frontend/home/content.tsx",
-                    lineNumber: 41,
+                    lineNumber: 25,
                     columnNumber: 11
                 }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
@@ -228,7 +223,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$i18n$2f$routing$2e$ts
                                                     children: post.category
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/frontend/home/content.tsx",
-                                                    lineNumber: 57,
+                                                    lineNumber: 35,
                                                     columnNumber: 23
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -236,13 +231,13 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$i18n$2f$routing$2e$ts
                                                     children: formatDate(post.date)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/modules/frontend/home/content.tsx",
-                                                    lineNumber: 60,
+                                                    lineNumber: 38,
                                                     columnNumber: 23
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/modules/frontend/home/content.tsx",
-                                            lineNumber: 56,
+                                            lineNumber: 34,
                                             columnNumber: 21
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -250,7 +245,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$i18n$2f$routing$2e$ts
                                             children: post.title
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/frontend/home/content.tsx",
-                                            lineNumber: 63,
+                                            lineNumber: 41,
                                             columnNumber: 21
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -258,7 +253,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$i18n$2f$routing$2e$ts
                                             children: post.excerpt
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/frontend/home/content.tsx",
-                                            lineNumber: 67,
+                                            lineNumber: 45,
                                             columnNumber: 21
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -268,44 +263,44 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$i18n$2f$routing$2e$ts
                                                 children: "閱讀更多 →"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/modules/frontend/home/content.tsx",
-                                                lineNumber: 70,
+                                                lineNumber: 48,
                                                 columnNumber: 23
                                             }, ("TURBOPACK compile-time value", void 0))
                                         }, void 0, false, {
                                             fileName: "[project]/src/modules/frontend/home/content.tsx",
-                                            lineNumber: 69,
+                                            lineNumber: 47,
                                             columnNumber: 21
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/modules/frontend/home/content.tsx",
-                                    lineNumber: 55,
+                                    lineNumber: 33,
                                     columnNumber: 19
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/frontend/home/content.tsx",
-                                lineNumber: 48,
+                                lineNumber: 32,
                                 columnNumber: 17
                             }, ("TURBOPACK compile-time value", void 0))
                         }, post.slug, false, {
                             fileName: "[project]/src/modules/frontend/home/content.tsx",
-                            lineNumber: 47,
+                            lineNumber: 31,
                             columnNumber: 15
                         }, ("TURBOPACK compile-time value", void 0)))
                 }, void 0, false, {
                     fileName: "[project]/src/modules/frontend/home/content.tsx",
-                    lineNumber: 45,
+                    lineNumber: 29,
                     columnNumber: 11
                 }, ("TURBOPACK compile-time value", void 0))
             ]
         }, void 0, true, {
             fileName: "[project]/src/modules/frontend/home/content.tsx",
-            lineNumber: 34,
+            lineNumber: 18,
             columnNumber: 7
         }, ("TURBOPACK compile-time value", void 0))
     }, void 0, false, {
         fileName: "[project]/src/modules/frontend/home/content.tsx",
-        lineNumber: 27,
+        lineNumber: 17,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };

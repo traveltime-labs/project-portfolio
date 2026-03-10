@@ -7,12 +7,6 @@ tags: ["markdown"]
 ---
 
 # MarkDown語法紀錄
-===
-
-[Toc]
-
-@copyright MRcoding筆記
-
 ---
 
 主標題
@@ -67,7 +61,7 @@ _斜體2_
 __斜粗2__
 正常^上標^
 正常~下標~
-+底線++
+++底線++
 ==螢光標記==
 
 ```
@@ -79,7 +73,7 @@ _斜體2_
 __斜粗2__
 正常^上標^
 正常~下標~
-+底線++
+++底線++
 ==螢光標記==
 ```
 
@@ -353,6 +347,28 @@ CheckBox
 
 ```md
 \+任意符號
+```
+
+
+字串型架構圖
+```bash
+src/
+ ├ app/
+ ├ components/
+ ├ hooks/
+ └ lib/
+```
+
+程式碼區塊測試
+
+這裡測試我們之前討論的語法高亮功能：
+```typescript
+// src/lib/mdx.ts
+export async function getPostBySlug(slug: string) {
+  const filePath = path.join(process.cwd(), 'content', `${slug}.md`);
+  const fileContent = fs.readFileSync(filePath, 'utf8');
+  return matter(fileContent);
+}
 ```
 
 ###### tags: `MarkDown教學` `HackMD新手教學`

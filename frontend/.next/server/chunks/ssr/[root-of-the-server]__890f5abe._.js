@@ -69,6 +69,31 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 ;
 ;
 ;
+/**
+ * 預處理 Markdown 原文，將 HackMD 擴充語法轉換為 HTML inline 標籤：
+ *   ==text==  →  <mark>text</mark>  （螢光標記）
+ *   ++text++  →  <ins>text</ins>   （底線）
+ * 程式碼區塊（```）與行內程式碼（`code`）內容不受影響。
+ */ function preprocessContent(source) {
+    const lines = source.split('\n');
+    let inCodeBlock = false;
+    return lines.map((line)=>{
+        if (/^\s*```/.test(line)) {
+            inCodeBlock = !inCodeBlock;
+            return line;
+        }
+        if (inCodeBlock) return line;
+        // 暫存行內程式碼，避免被替換
+        const codes = [];
+        let out = line.replace(/`[^`]+`/g, (m)=>{
+            codes.push(m);
+            return `\x00${codes.length - 1}\x00`;
+        });
+        out = out.replace(/==([^=\n]+)==/g, '<mark>$1</mark>');
+        out = out.replace(/\+\+([^+\n]+)\+\+/g, '<ins>$1</ins>');
+        return out.replace(/\x00(\d+)\x00/g, (_, i)=>codes[Number(i)]);
+    }).join('\n');
+}
 /*
 matter(fileContent)：將 Markdown 最上方的 --- 區域拆開。data 變數裡會有 title 和 category，而 content 就是剩下的文章本體。
 MDXRemote (RSC)：在 Next.js 15 的 App Router 中，直接使用伺服器組件（Server Component）版本的渲染器，效能極高，且對 SEO 完美。
@@ -87,7 +112,7 @@ const Content = async ({ params })=>{
             ]
         }, void 0, true, {
             fileName: "[project]/src/modules/frontend/blog/content.tsx",
-            lineNumber: 23,
+            lineNumber: 56,
             columnNumber: 12
         }, ("TURBOPACK compile-time value", void 0));
     }
@@ -95,6 +120,8 @@ const Content = async ({ params })=>{
     const fileContent = __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].readFileSync(filePath, 'utf8');
     // 3. 使用 gray-matter 解析 Front-matter (標題、日期等)
     const { content, data } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gray$2d$matter$2f$index$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"])(fileContent);
+    // 4. 預處理：轉換 ==highlight== / ++underline++ 語法
+    const processedContent = preprocessContent(content);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
         className: "max-w-4xl mx-auto py-10 px-4",
         children: [
@@ -106,7 +133,7 @@ const Content = async ({ params })=>{
                         children: data.title
                     }, void 0, false, {
                         fileName: "[project]/src/modules/frontend/blog/content.tsx",
-                        lineNumber: 37,
+                        lineNumber: 72,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -116,7 +143,7 @@ const Content = async ({ params })=>{
                                 children: data.date
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/frontend/blog/content.tsx",
-                                lineNumber: 39,
+                                lineNumber: 74,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             " | ",
@@ -124,25 +151,25 @@ const Content = async ({ params })=>{
                                 children: data.category
                             }, void 0, false, {
                                 fileName: "[project]/src/modules/frontend/blog/content.tsx",
-                                lineNumber: 39,
+                                lineNumber: 74,
                                 columnNumber: 38
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/modules/frontend/blog/content.tsx",
-                        lineNumber: 38,
+                        lineNumber: 73,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/modules/frontend/blog/content.tsx",
-                lineNumber: 36,
+                lineNumber: 71,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("article", {
-                className: " prose  lg:prose-xl  dark:prose-invert  max-w-none prose-a:text-blue-600  hover:prose-a:text-blue-500  prose-a:no-underline  prose-a:font-semibold prose-table:block prose-table:overflow-x-auto prose-th:font-semibold prose-td:align-top ",
+                className: " prose  lg:prose-xl  dark:prose-invert  max-w-none prose-a:text-blue-600  hover:prose-a:text-blue-500  prose-a:no-underline  prose-a:font-semibold prose-table:block prose-table:overflow-x-auto prose-th:font-semibold prose-td:align-top [&_mark]:bg-yellow-200 [&_mark]:text-yellow-900 [&_mark]:rounded-sm [&_mark]:px-0.5 dark:[&_mark]:bg-yellow-700 dark:[&_mark]:text-yellow-100 [&_ins]:underline [&_ins]:decoration-current ",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f$next$2d$mdx$2d$remote$2f$rsc__$5b$external$5d$__$28$next$2d$mdx$2d$remote$2f$rsc$2c$__esm_import$29$__["MDXRemote"], {
-                    source: content,
+                    source: processedContent,
                     options: {
                         mdxOptions: {
                             remarkPlugins: [
@@ -153,18 +180,18 @@ const Content = async ({ params })=>{
                     }
                 }, void 0, false, {
                     fileName: "[project]/src/modules/frontend/blog/content.tsx",
-                    lineNumber: 57,
+                    lineNumber: 100,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/modules/frontend/blog/content.tsx",
-                lineNumber: 43,
+                lineNumber: 78,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/modules/frontend/blog/content.tsx",
-        lineNumber: 35,
+        lineNumber: 70,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };

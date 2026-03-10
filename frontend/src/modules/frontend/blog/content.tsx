@@ -76,28 +76,29 @@ const Content = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const processedContent = preprocessContent(content);
 
   return (
-    <main className="max-w-4xl mx-auto py-10 px-4">
+    <main className="max-w-4xl mx-auto py-10 px-4" data-testid="blog-detail-page">
       <BreadcrumbTitleSync title={typeof data.title === 'string' ? data.title : undefined} />
-      <header className="mb-8">
-        <h1 className="text-4xl font-bold mb-2">{data.title}</h1>
-        <div className="flex flex-wrap items-center gap-2 text-gray-500">
-          {safeDate ? <span>{safeDate}</span> : null}
+      <header className="mb-8" data-testid="blog-detail-header">
+        <h1 className="text-4xl font-bold mb-2" data-testid="blog-detail-title">{data.title}</h1>
+        <div className="flex flex-wrap items-center gap-2 text-gray-500" data-testid="blog-detail-meta">
+          {safeDate ? <span data-testid="blog-detail-date">{safeDate}</span> : null}
           {safeCategory ? (
             <>
               {safeDate ? <span>|</span> : null}
-              <Link href={`/category/${encodeURIComponent(safeCategory)}`} className="text-blue-600 hover:underline">
+              <Link href={`/category/${encodeURIComponent(safeCategory)}`} className="text-blue-600 hover:underline" data-testid="blog-detail-category-link">
                 {safeCategory}
               </Link>
             </>
           ) : null}
         </div>
         {safeTags.length > 0 ? (
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className="mt-4 flex flex-wrap gap-2" data-testid="blog-detail-tags">
             {safeTags.map((tag, index) => (
               <Link
                 key={`${tag}-${index}`}
                 href={`/tags/${encodeURIComponent(tag)}`}
                 className="rounded-full bg-slate-100 px-3 py-1 text-sm text-slate-600 transition hover:bg-slate-200"
+                data-testid={`blog-detail-tag-${encodeURIComponent(tag)}`}
               >
                 #{tag}
               </Link>

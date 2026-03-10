@@ -71,6 +71,18 @@ export default function InnerSideBar() {
     }, {} as Record<string, number>);
   }, [allPosts]);
 
+  const tags = useMemo(() => {
+    return allPosts.reduce((acc, post) => {
+      const postTags = Array.isArray(post.tags) ? post.tags : [];
+      postTags.forEach((tag) => {
+        const safeTag = String(tag).trim();
+        if (!safeTag) return;
+        acc[safeTag] = (acc[safeTag] || 0) + 1;
+      });
+      return acc;
+    }, {} as Record<string, number>);
+  }, [allPosts]);
+
   const recentPosts = useMemo(() => {
     return [...allPosts]
       .sort((a, b) => parseDateValue(b.date) - parseDateValue(a.date))
@@ -87,7 +99,7 @@ export default function InnerSideBar() {
   // search
 
   return (
-    <aside className="space-y-6 mt-6 mx-auto container lg:max-w-[300px]">
+    <aside className="space-y-6 mt-6 mx-auto container lg:max-w-[300px]" data-testid="home-sidebar">
       {/* Author Card */}
     {/* <aside className="col-span-1">
           <div className="bg-white border border-slate-200 rounded-2xl p-6 text-center">
@@ -112,7 +124,7 @@ export default function InnerSideBar() {
         </aside> */}
 
 
-      <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 text-center">
+      <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 text-center" data-testid="sidebar-author-card">
         <div className="mx-auto h-16 w-16 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-2xl font-bold text-slate-600 dark:text-slate-300">W</div>
         <h3 className="mt-3 text-sm font-semibold">W - 練習用</h3>
         <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
@@ -129,10 +141,11 @@ export default function InnerSideBar() {
       </div>
 
       {/* Search */}
-      <div className="rounded-2xl">
+      <div className="rounded-2xl" data-testid="sidebar-search">
         <label className="block text-xs text-slate-500 mb-2 trasnition-colors">搜尋文章</label>
         <div className="relative">
           <input
+            data-testid="sidebar-search-input"
             placeholder="輸入關鍵字"
             value={searchInput}
             onChange={(e) => {
@@ -145,10 +158,10 @@ export default function InnerSideBar() {
           />
 
           {isSearchOpen && searchInput.trim() && (
-            <ul className="absolute top-10 left-0 right-0 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg z-10 max-h-64 overflow-y-auto">
+            <ul className="absolute top-10 left-0 right-0 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg z-10 max-h-64 overflow-y-auto" data-testid="sidebar-search-results">
               {searchResults.length > 0 ? (
                 searchResults.map((post) => (
-                  <li key={post.slug} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 cursor-pointer border-b border-slate-200 dark:border-slate-700 last:border-b-0">
+                  <li key={post.slug} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 cursor-pointer border-b border-slate-200 dark:border-slate-700 last:border-b-0" data-testid={`sidebar-search-result-${post.slug}`}>
                     <Link
                       href={`/blog/${post.slug}`}
                       className="block text-sm text-slate-700 dark:text-slate-300"
@@ -171,25 +184,39 @@ export default function InnerSideBar() {
       </div>
 
       {/* Categories */}
-      <div className="bg-white border dark:bg-slate-800  border-slate-200 rounded-2xl p-4 hidden lg:block">
-        <h4 className="text-sm transition-colors font-semibold mb-3">文章分類</h4>
-        <ul className="space-y-2 text-sm">
+      <div className="bg-white border dark:bg-slate-800  border-slate-200 rounded-2xl p-4 hidden lg:block" data-testid="sidebar-categories">
+        <h4 className="text-sm transition-colors font-semibold mb-3" data-testid="sidebar-categories-title">文章分類</h4>
+        <ul className="space-y-2 text-sm" data-testid="sidebar-categories-list">
           {Object.entries(categories).map(([category, count]) => (
-            <li key={category} className="flex items-center justify-between">
-              <Link href={`/category/${encodeURIComponent(category)}`} className="text-slate-700 transition-colors hover:text-blue-600">{category}</Link>
-              <span className="text-xs text-slate-400">{count}</span>
+            <li key={category} className="flex items-center justify-between" data-testid={`sidebar-category-item-${encodeURIComponent(category)}`}>
+              <Link href={`/category/${encodeURIComponent(category)}`} className="text-slate-700 transition-colors hover:text-blue-600" data-testid={`sidebar-category-link-${encodeURIComponent(category)}`}>{category}</Link>
+              <span className="text-xs text-slate-400" data-testid={`sidebar-category-count-${encodeURIComponent(category)}`}>{count}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="bg-white border dark:bg-slate-800 border-slate-200 rounded-2xl p-4 hidden lg:block" data-testid="sidebar-tags">
+        <h4 className="text-sm transition-colors font-semibold mb-3" data-testid="sidebar-tags-title">文章標籤</h4>
+        <ul className="space-y-2 text-sm" data-testid="sidebar-tags-list">
+          {Object.entries(tags).map(([tag, count]) => (
+            <li key={tag} className="flex items-center justify-between" data-testid={`sidebar-tag-item-${encodeURIComponent(tag)}`}>
+              <Link href={`/tags/${encodeURIComponent(tag)}`} className="text-slate-700 transition-colors hover:text-blue-600" data-testid={`sidebar-tag-link-${encodeURIComponent(tag)}`}>
+                #{tag}
+              </Link>
+              <span className="text-xs text-slate-400" data-testid={`sidebar-tag-count-${encodeURIComponent(tag)}`}>{count}</span>
             </li>
           ))}
         </ul>
       </div>
 
       {/* Recent posts (placeholder) */}
-      <div className="bg-white dark:bg-slate-800  border border-slate-200 rounded-2xl p-4 hidden lg:block">
-        <h4 className="text-sm transition-colors font-semibold mb-3">近期文章</h4>
-        <ul className="space-y-2 text-sm text-slate-700">
+      <div className="bg-white dark:bg-slate-800  border border-slate-200 rounded-2xl p-4 hidden lg:block" data-testid="sidebar-recent-posts">
+        <h4 className="text-sm transition-colors font-semibold mb-3" data-testid="sidebar-recent-posts-title">近期文章</h4>
+        <ul className="space-y-2 text-sm text-slate-700" data-testid="sidebar-recent-posts-list">
           {recentPosts.map((post) => (
-            <li key={post.slug}>
-              <Link href={`/blog/${post.slug}`} className="hover:text-blue-600 transition-colors line-clamp-1">{post.title}</Link>
+            <li key={post.slug} data-testid={`sidebar-recent-post-${post.slug}`}>
+              <Link href={`/blog/${post.slug}`} className="hover:text-blue-600 transition-colors line-clamp-1" data-testid={`sidebar-recent-post-link-${post.slug}`}>{post.title}</Link>
             </li>
           ))}
         </ul>

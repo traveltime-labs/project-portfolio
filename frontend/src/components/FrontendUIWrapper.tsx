@@ -16,6 +16,7 @@ import Footer from "@/components/Footer";
 import SideTools from "@/components/SideTools"
 import AIChat from "@/components/AIChat"
 import InnerSidebar from "@/components/InnerSidebar"
+import { ArticleTocProvider } from '@/providers/article-toc-provider';
 import { BreadcrumbProvider } from "@/providers/breadcrumb-provider"
 
 
@@ -58,6 +59,7 @@ export default function FrontendUIWrapper({ children }: { children: React.ReactN
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
     <BreadcrumbProvider>
+    <ArticleTocProvider>
 
     <ResizablePanelGroup
       direction="horizontal"
@@ -120,6 +122,7 @@ export default function FrontendUIWrapper({ children }: { children: React.ReactN
       </ResizablePanel>
 
     </ResizablePanelGroup>
+    </ArticleTocProvider>
     </BreadcrumbProvider>
     </ThemeProvider>
   );

@@ -1,10 +1,13 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
+import BlogTableOfContents from '@/components/blog/BlogTableOfContents';
 import { Link } from "@/i18n/routing";
 import { FaGithub } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaFacebookSquare } from "react-icons/fa";
+import { cn } from '@/lib/utils';
+import { useArticleToc } from '@/providers/article-toc-provider';
 import Fuse from "fuse.js";
 
 interface Post {
@@ -24,6 +27,7 @@ const parseDateValue = (value?: string) => {
 };
 
 export default function InnerSideBar() {
+  const { headings } = useArticleToc();
   const [searchInput, setSearchInput] = useState("");
   const [allPosts, setAllPosts] = useState<Post[]>([]);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -99,7 +103,7 @@ export default function InnerSideBar() {
   // search
 
   return (
-    <aside className="space-y-6 mt-6 mx-auto container lg:max-w-[300px]" data-testid="home-sidebar">
+    <aside className="space-y-6 mt-6 mx-auto container lg:max-w-75" data-testid="home-sidebar">
       {/* Author Card */}
     {/* <aside className="col-span-1">
           <div className="bg-white border border-slate-200 rounded-2xl p-6 text-center">
@@ -183,43 +187,50 @@ export default function InnerSideBar() {
         </div>
       </div>
 
-      {/* Categories */}
-      <div className="bg-white border dark:bg-slate-800  border-slate-200 rounded-2xl p-4 hidden lg:block" data-testid="sidebar-categories">
-        <h4 className="text-sm transition-colors font-semibold mb-3" data-testid="sidebar-categories-title">文章分類</h4>
-        <ul className="space-y-2 text-sm" data-testid="sidebar-categories-list">
-          {Object.entries(categories).map(([category, count]) => (
-            <li key={category} className="flex items-center justify-between" data-testid={`sidebar-category-item-${encodeURIComponent(category)}`}>
-              <Link href={`/category/${encodeURIComponent(category)}`} className="text-slate-700 transition-colors hover:text-blue-600" data-testid={`sidebar-category-link-${encodeURIComponent(category)}`}>{category}</Link>
-              <span className="text-xs text-slate-400" data-testid={`sidebar-category-count-${encodeURIComponent(category)}`}>{count}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <div className={cn('space-y-6', headings.length > 0 && 'lg:sticky lg:top-24')} data-testid="sidebar-floating-section">
+        {headings.length > 0 ? (
+          <div className="hidden lg:block" data-testid="sidebar-article-toc">
+            <BlogTableOfContents headings={headings} />
+          </div>
+        ) : null}
 
-      <div className="bg-white border dark:bg-slate-800 border-slate-200 rounded-2xl p-4 hidden lg:block" data-testid="sidebar-tags">
-        <h4 className="text-sm transition-colors font-semibold mb-3" data-testid="sidebar-tags-title">文章標籤</h4>
-        <ul className="space-y-2 text-sm" data-testid="sidebar-tags-list">
-          {Object.entries(tags).map(([tag, count]) => (
-            <li key={tag} className="flex items-center justify-between" data-testid={`sidebar-tag-item-${encodeURIComponent(tag)}`}>
-              <Link href={`/tags/${encodeURIComponent(tag)}`} className="text-slate-700 transition-colors hover:text-blue-600" data-testid={`sidebar-tag-link-${encodeURIComponent(tag)}`}>
-                #{tag}
-              </Link>
-              <span className="text-xs text-slate-400" data-testid={`sidebar-tag-count-${encodeURIComponent(tag)}`}>{count}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+        {/* Categories */}
+        <div className="bg-white border dark:bg-slate-800  border-slate-200 rounded-2xl p-4 hidden lg:block" data-testid="sidebar-categories">
+          <h4 className="text-sm transition-colors font-semibold mb-3" data-testid="sidebar-categories-title">文章分類</h4>
+          <ul className="space-y-2 text-sm" data-testid="sidebar-categories-list">
+            {Object.entries(categories).map(([category, count]) => (
+              <li key={category} className="flex items-center justify-between" data-testid={`sidebar-category-item-${encodeURIComponent(category)}`}>
+                <Link href={`/category/${encodeURIComponent(category)}`} className="text-slate-700 transition-colors hover:text-blue-600" data-testid={`sidebar-category-link-${encodeURIComponent(category)}`}>{category}</Link>
+                <span className="text-xs text-slate-400" data-testid={`sidebar-category-count-${encodeURIComponent(category)}`}>{count}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-      {/* Recent posts (placeholder) */}
-      <div className="bg-white dark:bg-slate-800  border border-slate-200 rounded-2xl p-4 hidden lg:block" data-testid="sidebar-recent-posts">
-        <h4 className="text-sm transition-colors font-semibold mb-3" data-testid="sidebar-recent-posts-title">近期文章</h4>
-        <ul className="space-y-2 text-sm text-slate-700" data-testid="sidebar-recent-posts-list">
-          {recentPosts.map((post) => (
-            <li key={post.slug} data-testid={`sidebar-recent-post-${post.slug}`}>
-              <Link href={`/blog/${encodeURIComponent(post.slug)}`} className="hover:text-blue-600 transition-colors line-clamp-1" data-testid={`sidebar-recent-post-link-${post.slug}`}>{post.title}</Link>
-            </li>
-          ))}
-        </ul>
+        <div className="bg-white border dark:bg-slate-800 border-slate-200 rounded-2xl p-4 hidden lg:block" data-testid="sidebar-tags">
+          <h4 className="text-sm transition-colors font-semibold mb-3" data-testid="sidebar-tags-title">文章標籤</h4>
+          <ul className="space-y-2 text-sm" data-testid="sidebar-tags-list">
+            {Object.entries(tags).map(([tag, count]) => (
+              <li key={tag} className="flex items-center justify-between" data-testid={`sidebar-tag-item-${encodeURIComponent(tag)}`}>
+                <Link href={`/tags/${encodeURIComponent(tag)}`} className="text-slate-700 transition-colors hover:text-blue-600" data-testid={`sidebar-tag-link-${encodeURIComponent(tag)}`}>
+                  #{tag}
+                </Link>
+                <span className="text-xs text-slate-400" data-testid={`sidebar-tag-count-${encodeURIComponent(tag)}`}>{count}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="bg-white dark:bg-slate-800  border border-slate-200 rounded-2xl p-4 hidden lg:block" data-testid="sidebar-recent-posts">
+          <h4 className="text-sm transition-colors font-semibold mb-3" data-testid="sidebar-recent-posts-title">近期文章</h4>
+          <ul className="space-y-2 text-sm text-slate-700" data-testid="sidebar-recent-posts-list">
+            {recentPosts.map((post) => (
+              <li key={post.slug} data-testid={`sidebar-recent-post-${post.slug}`}>
+                <Link href={`/blog/${encodeURIComponent(post.slug)}`} className="hover:text-blue-600 transition-colors line-clamp-1" data-testid={`sidebar-recent-post-link-${post.slug}`}>{post.title}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       {/* Mini widget */}

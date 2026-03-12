@@ -1,12 +1,15 @@
-import fs from 'fs';
 import matter from 'gray-matter';
 import { MDXRemote } from 'next-mdx-remote/rsc'; // 注意：App Router 使用 /rsc 版本
 import { notFound } from 'next/navigation';
+import type { HTMLAttributes, ReactNode } from 'react';
 import remarkGfm from 'remark-gfm';
 import remarkSupersub from 'remark-supersub';
+import BlogHeadingsSync from '@/components/BlogHeadingsSync';
 import BreadcrumbTitleSync from '@/components/BreadcrumbTitleSync';
 import { Link } from '@/i18n/routing';
+import { createHeadingId, extractMarkdownHeadings, extractTextFromReactNode } from '@/lib/blogHeadings';
 import { readPostFile } from '@/lib/postContent';
+import { cn } from '@/lib/utils';
 
 /**
  * 預處理 Markdown 原文，將 HackMD 擴充語法轉換為 HTML inline 標籤：
@@ -67,14 +70,36 @@ const Content = async ({ params }: { params: Promise<{ slug: string }> }) => {
     : typeof data.tags === 'string'
       ? [data.tags]
       : [];
+  const headings = extractMarkdownHeadings(content);
+  const headingIdCounts = new Map<string, number>();
+
+  const createHeadingComponent = (tag: 'h2' | 'h3' | 'h4') => {
+    return ({ children, className, ...props }: HTMLAttributes<HTMLHeadingElement> & { children?: ReactNode }) => {
+      const Tag = tag;
+      const text = extractTextFromReactNode(children);
+      const id = createHeadingId(text, headingIdCounts);
+
+      return (
+        <Tag
+          {...props}
+          id={id}
+          className={cn('scroll-mt-28', className)}
+          data-heading-anchor={id}
+        >
+          {children}
+        </Tag>
+      );
+    };
+  };
 
   // 4. 預處理：轉換 ==highlight== / ++underline++ 語法
   const processedContent = preprocessContent(content);
 
   return (
-    <main className="max-w-4xl mx-auto py-10 px-4" data-testid="blog-detail-page">
+    <main className="mx-auto max-w-4xl py-10 px-4" data-testid="blog-detail-page">
+      <BlogHeadingsSync headings={headings} />
       <BreadcrumbTitleSync title={typeof data.title === 'string' ? data.title : undefined} />
-      <header className="mb-8" data-testid="blog-detail-header">
+      <header className="mb-8 max-w-4xl" data-testid="blog-detail-header">
         <h1 className="text-4xl font-bold mb-2" data-testid="blog-detail-title">{data.title}</h1>
         <div className="flex flex-wrap items-center gap-2 text-gray-500" data-testid="blog-detail-meta">
           {safeDate ? <span data-testid="blog-detail-date">{safeDate}</span> : null}
@@ -105,9 +130,9 @@ const Content = async ({ params }: { params: Promise<{ slug: string }> }) => {
 
       <article className="
         prose 
+        max-w-none
         lg:prose-xl 
         dark:prose-invert 
-        max-w-none
         prose-a:text-blue-600 
         hover:prose-a:text-blue-500 
         prose-a:no-underline 
@@ -124,9 +149,14 @@ const Content = async ({ params }: { params: Promise<{ slug: string }> }) => {
         dark:[&_mark]:text-yellow-100
         [&_ins]:underline
         [&_ins]:decoration-current
-        ">
+        " data-testid="blog-detail-article">
         <MDXRemote
           source={processedContent}
+          components={{
+            h2: createHeadingComponent('h2'),
+            h3: createHeadingComponent('h3'),
+            h4: createHeadingComponent('h4'),
+          }}
           options={{
             mdxOptions: {
               remarkPlugins: [remarkGfm, remarkSupersub],

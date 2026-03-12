@@ -11,10 +11,10 @@ const PostList = () => {
     {/* <div className="pt-4 text-center">
       ui元件, 小工具
     </div> */}
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 mx-4 lg:mx-0">
-      {isLoading && <div>Loading...</div>}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 mx-4 lg:mx-0" data-testid="post-list-grid">
+      {isLoading && <div data-testid="post-list-loading">Loading...</div>}
       {/* {error && <div> {error.message} </div>} */}
-      {!isLoading && posts.length === 0 && <div>No posts found.</div>}
+      {!isLoading && posts.length === 0 && <div data-testid="post-list-empty">No posts found.</div>}
       {!isLoading && posts.map((post: Post) => (
         <PostCard key={post.id} post={post} />
       ))}

@@ -238,35 +238,35 @@ async function LocaleLayout({ children, params }) {
                             showAtBottom: false
                         }, void 0, false, {
                             fileName: "[project]/src/app/[locale]/layout.tsx",
-                            lineNumber: 58,
+                            lineNumber: 56,
                             columnNumber: 15
                         }, this),
                         children,
                         " ",
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$sonner$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Toaster"], {}, void 0, false, {
                             fileName: "[project]/src/app/[locale]/layout.tsx",
-                            lineNumber: 73,
+                            lineNumber: 71,
                             columnNumber: 15
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/[locale]/layout.tsx",
-                    lineNumber: 56,
+                    lineNumber: 55,
                     columnNumber: 13
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/[locale]/layout.tsx",
-                lineNumber: 55,
+                lineNumber: 54,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/app/[locale]/layout.tsx",
-            lineNumber: 53,
+            lineNumber: 52,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/[locale]/layout.tsx",
-        lineNumber: 52,
+        lineNumber: 51,
         columnNumber: 5
     }, this);
 } // 3. Root Layout - 主架構 server component 

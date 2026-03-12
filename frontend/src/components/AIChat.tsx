@@ -35,7 +35,7 @@ const AIChat = () => {
                 <div className="flex mb-8 ltr:ml-3" data-chat-source="service">
                     <Image className="object-cover " src="/" alt="" width={40} height={40}/>
                     <div className=" bg-gray-50 p-5">
-                        <p>哈囉！歡迎來到華碩客服，我是您的專業AI助理。無論您對華碩的產品、服務或技術有任何疑問，都可以直接向我提問喔！不管是筆電、主機板、顯示器還是電競周邊，我都很樂意為您提供協助。請問有什麼我可以幫忙的呢？</p>
+                        <p>哈囉！歡迎來到XX客服，我是您的專業AI助理。無論您對華碩的產品、服務或技術有任何疑問，都可以直接向我提問喔！不管是筆電、主機板、顯示器還是電競周邊，我都很樂意為您提供協助。請問有什麼我可以幫忙的呢？</p>
                     </div>
                     <div className="text-sm text-gray">10:20 AM</div>
                 </div>

@@ -25,13 +25,14 @@ const PostCard = ({post}: any) => {
   return (
     <Link
       href={href}
+      data-testid={`post-card-link-${post.id}`}
       className="block border border-zinc-900/10 dark:border-white/20
         relative overflow-hidden transition-transform duration-300
         hover:-translate-y-2 cursor-pointer will-change-transform
         animate-fade animate-duration-500 rounded-2xl"
     >
       {/* 圖片 */}
-      <div className="aspect-video bg-gray-700">
+      <div className="aspect-video bg-gray-700" data-testid={`post-card-image-${post.id}`}>
         {post.image && (
           <Image
             className="object-cover w-full h-full"
@@ -44,19 +45,19 @@ const PostCard = ({post}: any) => {
       </div>
 
       {/* 內容 */}
-      <div className="p-4 bg-white dark:bg-black transition-colors">
-        <h3 className="font-bold mb-2">
+      <div className="p-4 bg-white dark:bg-black transition-colors" data-testid={`post-card-content-${post.id}`}>
+        <h3 className="font-bold mb-2" data-testid={`post-card-title-${post.id}`}>
           {post.title}
-          <small className="ml-2 bg-amber-800 p-1 rounded-sm text-white text-xs">
+          <small className="ml-2 bg-amber-800 p-1 rounded-sm text-white text-xs" data-testid={`post-card-group-${post.id}`}>
             {post.group}
           </small>
         </h3>
 
-        <p className="text-blue-400 text-xs mb-4">
+        <p className="text-blue-400 text-xs mb-4" data-testid={`post-card-author-${post.id}`}>
           {post.author}
         </p>
 
-        <p className="text-gray-400 text-sm mb-2 line-clamp-3">
+        <p className="text-gray-400 text-sm mb-2 line-clamp-3" data-testid={`post-card-description-${post.id}`}>
           {post.content}
         </p>
       </div>

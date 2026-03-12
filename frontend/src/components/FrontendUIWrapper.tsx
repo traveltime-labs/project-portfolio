@@ -83,7 +83,8 @@ export default function FrontendUIWrapper({ children }: { children: React.ReactN
                 </div>
 
               </div>
-              <SideTools toggleChat={toggleChat}/>
+              {/* <SideTools toggleChat={toggleChat}/> */}
+              <SideTools/> 
           </div>
           <Footer />
       </ResizablePanel>

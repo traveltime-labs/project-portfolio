@@ -18,7 +18,6 @@ import QueryClientProvider from "@/providers/query-client-provider"
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner"
 import NextTopLoader from 'nextjs-toploader';
-import Overlay from '@/components/Overlay';
 
 // 1. 設定字體
 const geistSans = Geist({
@@ -54,7 +53,6 @@ export default async function LocaleLayout({
         {/* Provider 讓 Client Components 也能用翻譯 */}
         <NextIntlClientProvider messages={messages}>
             <QueryClientProvider> {/* 全域的 React Query 設定 */}
-              {/* <Overlay/> */}
               <NextTopLoader 
                 color="#2299DD"
                   initialPosition={0.08}

@@ -176,7 +176,7 @@ export default function InnerSideBar() {
                   </li>
                 ))
               ) : (
-                <li className="p-2 text-sm text-slate-500 text-center">未找到相關文章</li>
+                <li className="p-2 text-sm text-slate-500 text-center" data-testid="sidebar-search-empty">未找到相關文章</li>
               )}
             </ul>
           )}

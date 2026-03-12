@@ -17,24 +17,24 @@ const Content: React.FC<{ posts: ArticlePost[] }> = ({ posts }) => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h2 className="text-2xl font-extrabold mb-6">文章列表</h2>
+    <div className="container mx-auto px-4 py-8" data-testid="articles-page">
+      <h2 className="text-2xl font-extrabold mb-6" data-testid="articles-title">文章列表</h2>
 
       {posts.length > 0 ? (
-        <ul className="space-y-4">
+        <ul className="space-y-4" data-testid="articles-list">
           {posts.map((post) => (
-            <li key={post.slug} className="rounded-xl border border-slate-200 p-4">
-              <div className="text-xs text-slate-500 mb-2">{formatDate(post.date)}</div>
-              <Link href={`/blog/${post.slug}`} className="text-lg font-bold hover:text-blue-600">
+            <li key={post.slug} className="rounded-xl border border-slate-200 p-4" data-testid={`articles-item-${post.slug}`}>
+              <div className="text-xs text-slate-500 mb-2" data-testid={`articles-date-${post.slug}`}>{formatDate(post.date)}</div>
+              <Link href={`/blog/${encodeURIComponent(post.slug)}`} className="text-lg font-bold hover:text-blue-600" data-testid={`articles-link-${post.slug}`}>
                 {post.title || post.slug}
               </Link>
-              <div className="text-xs text-blue-600 mt-2">{post.category || "未分類"}</div>
-              {post.excerpt ? <p className="text-sm text-slate-600 mt-2 line-clamp-3">{post.excerpt}</p> : null}
+              <div className="text-xs text-blue-600 mt-2" data-testid={`articles-category-${post.slug}`}>{post.category || "未分類"}</div>
+              {post.excerpt ? <p className="text-sm text-slate-600 mt-2 line-clamp-3" data-testid={`articles-excerpt-${post.slug}`}>{post.excerpt}</p> : null}
             </li>
           ))}
         </ul>
       ) : (
-        <div className="text-gray-500">沒有資料</div>
+        <div className="text-gray-500" data-testid="articles-empty-state">沒有資料</div>
       )}
     </div>
   );

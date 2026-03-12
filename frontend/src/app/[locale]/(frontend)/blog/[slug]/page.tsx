@@ -1,8 +1,7 @@
 import Content from "@/modules/frontend/blog/content";
+import { readPostFile } from "@/lib/postContent";
 import { Metadata } from "next";
 import matter from "gray-matter";
-import fs from "fs";
-import path from "path";
 
 // 新增SEO meta 標籤:  src/app/blog/[slug]/page.tsx
 type Props = {
@@ -11,23 +10,30 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  
-  // 1. 讀取 md 檔案內容
-  const filePath = path.join(process.cwd(), "src", "content", "posts", `${slug}.md`);
-  const fileContent = fs.readFileSync(filePath, "utf8");
-  const { data } = matter(fileContent);
 
-  // 2. 回傳 SEO 設定
+  const postFile = readPostFile(slug);
+  if (!postFile) {
+    return {
+      title: "找不到文章",
+      description: "你要查看的文章不存在或已被移除。",
+    };
+  }
+
+  const { fileContent } = postFile;
+  const { data } = matter(fileContent);
+  const safeTitle = typeof data.title === "string" ? data.title : slug;
+  const safeExcerpt = typeof data.excerpt === "string" ? data.excerpt : `閱讀更多關於 ${safeTitle}`;
+  const safeDate = typeof data.date === "string" ? data.date : undefined;
+
   return {
-    title: data.title,
-    description: data.excerpt || "閱讀更多關於 " + data.title,
+    title: safeTitle,
+    description: safeExcerpt,
     openGraph: {
-      title: data.title,
-      description: data.excerpt,
+      title: safeTitle,
+      description: safeExcerpt,
       type: "article",
-      publishedTime: data.date,
-      // 如果你有放圖片在 public/blog/slug/cover.jpg
-      images: [`/blog/${slug}/cover.jpg`], 
+      publishedTime: safeDate,
+      images: [`/blog/${slug}/cover.jpg`],
     },
   };
 }

@@ -20,7 +20,7 @@ const Content = ({ slug, posts }: DetailContentProps) => {
           {posts.map((p) => (
             <li key={p.slug}>
               <Link
-                href={`/blog/${p.slug}`}
+                href={`/blog/${encodeURIComponent(p.slug)}`}
                 className="text-blue-500 hover:underline"
               >
                 {p.title || p.slug}

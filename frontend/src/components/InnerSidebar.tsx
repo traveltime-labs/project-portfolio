@@ -163,7 +163,7 @@ export default function InnerSideBar() {
                 searchResults.map((post) => (
                   <li key={post.slug} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 cursor-pointer border-b border-slate-200 dark:border-slate-700 last:border-b-0" data-testid={`sidebar-search-result-${post.slug}`}>
                     <Link
-                      href={`/blog/${post.slug}`}
+                      href={`/blog/${encodeURIComponent(post.slug)}`}
                       className="block text-sm text-slate-700 dark:text-slate-300"
                       onClick={() => {
                         setSearchInput("");
@@ -216,7 +216,7 @@ export default function InnerSideBar() {
         <ul className="space-y-2 text-sm text-slate-700" data-testid="sidebar-recent-posts-list">
           {recentPosts.map((post) => (
             <li key={post.slug} data-testid={`sidebar-recent-post-${post.slug}`}>
-              <Link href={`/blog/${post.slug}`} className="hover:text-blue-600 transition-colors line-clamp-1" data-testid={`sidebar-recent-post-link-${post.slug}`}>{post.title}</Link>
+              <Link href={`/blog/${encodeURIComponent(post.slug)}`} className="hover:text-blue-600 transition-colors line-clamp-1" data-testid={`sidebar-recent-post-link-${post.slug}`}>{post.title}</Link>
             </li>
           ))}
         </ul>

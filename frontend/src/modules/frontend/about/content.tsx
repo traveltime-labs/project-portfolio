@@ -57,17 +57,17 @@ const works = [...Array(6)].map((_, i) => ({
 
 const Content = () => {
   return (
-    <div className="container mx-auto py-8">
-      <header className="mb-8 text-center">
-        <h1 className="text-3xl font-extrabold">about</h1>
-        <p className="text-slate-600 mt-2">text。</p>
+    <div className="container mx-auto py-8" data-testid="about-page">
+      <header className="mb-8 text-center" data-testid="about-header">
+        <h1 className="text-3xl font-extrabold" data-testid="about-title">about</h1>
+        <p className="text-slate-600 mt-2" data-testid="about-description">text。</p>
       </header>
 
-      <main className="col-span-1 lg:col-span-2 space-y-8">
+      <main className="col-span-1 lg:col-span-2 space-y-8" data-testid="about-main">
 
         {/* Timeline */}
-        <section className="py-6">
-          <h2 className="text-lg font-semibold mb-4">work history</h2>
+        <section className="py-6" data-testid="about-history-section">
+          <h2 className="text-lg font-semibold mb-4" data-testid="about-history-title">work history</h2>
           <TimeLine List={timelineData} />
         </section>
 
@@ -88,11 +88,11 @@ const Content = () => {
           </section> */}
 
         {/* 作品集 */}
-        <section>
-          <h2 className="text-lg font-semibold mb-4">作品集</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <section data-testid="about-works-section">
+          <h2 className="text-lg font-semibold mb-4" data-testid="about-works-title">作品集</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" data-testid="about-works-grid">
             {works.map((w) => (
-              <Card key={w.id} className="overflow-hidden">
+              <Card key={w.id} className="overflow-hidden" data-testid={`about-work-card-${w.id}`}>
                 <div className="relative aspect-video">
                   <img src={w.img} alt={w.title} className="object-cover w-full h-full" />
                   <div className="absolute inset-0 bg-black/30" />

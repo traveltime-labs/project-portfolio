@@ -9,6 +9,7 @@ const { mockUsePathname, mockUseBreadcrumbTitle } = vi.hoisted(() => ({
   mockUseBreadcrumbTitle: vi.fn(),
 }));
 
+// mock usePathname，因為 Breadcrumb 組件主要依賴這兩個 hook 來決定渲染內容
 vi.mock('@/i18n/routing', () => ({
   Link: ({ href, children, ...props }: { href: string; children: ReactNode }) => (
     <a href={href} {...props}>
@@ -18,18 +19,21 @@ vi.mock('@/i18n/routing', () => ({
   usePathname: mockUsePathname,
 }));
 
+// mock useBreadcrumbTitle，因為 Breadcrumb 組件主要依賴這兩個 hook 來決定渲染內容
 vi.mock('@/providers/breadcrumb-provider', () => ({
   useBreadcrumbTitle: mockUseBreadcrumbTitle,
 }));
 
 describe('Breadcrumb', () => {
+  // 在每個測試之前重置 mock 的返回值，確保測試之間不會互相影響
   beforeEach(() => {
     mockUsePathname.mockReset();
     mockUseBreadcrumbTitle.mockReset();
     mockUseBreadcrumbTitle.mockReturnValue({ breadcrumbTitle: null });
   });
 
-  it('renders mapped labels for known sidebar routes', () => {
+  it('測試已知路由的映射標籤是否正確渲染', () => {
+    // 模擬在 /category 頁面，並且 useBreadcrumbTitle 返回 null，表示沒有特定的 breadcrumbTitle
     mockUsePathname.mockReturnValue('/category');
 
     render(<Breadcrumb />);
@@ -39,7 +43,8 @@ describe('Breadcrumb', () => {
     expect(screen.getByTestId('breadcrumb-label-0')).toHaveTextContent('分類');
   });
 
-  it('uses breadcrumb title on blog detail pages', () => {
+  it('測試在 blog 詳細頁面使用 breadcrumb title', () => {
+    // 模擬在 blog 詳細頁面，路徑為 /blog/hello-vitest，並且 useBreadcrumbTitle 返回一個特定的 breadcrumbTitle
     mockUsePathname.mockReturnValue('/blog/hello-vitest');
     mockUseBreadcrumbTitle.mockReturnValue({ breadcrumbTitle: 'Hello Vitest Article' });
 
@@ -50,7 +55,8 @@ describe('Breadcrumb', () => {
     expect(screen.queryByText('hello-vitest')).not.toBeInTheDocument();
   });
 
-  it('decodes unknown path segments before rendering', () => {
+  it('測試對於未知路由，Breadcrumb 是否能夠正確解碼並渲染路徑段的文本內容', () => {
+    // 模擬一個未知路由，並且路徑中包含 URL 編碼的空格（%20）
     mockUsePathname.mockReturnValue('/tags/react%20hooks');
 
     render(<Breadcrumb />);

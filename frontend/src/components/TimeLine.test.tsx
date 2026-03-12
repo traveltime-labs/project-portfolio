@@ -41,7 +41,7 @@ const mockTimeline = [
 ];
 
 describe('TimeLine', () => {
-  it('renders timeline groups and item content', () => {
+  it('測試時間軸組件是否正確渲染', () => {
     render(<TimeLine List={mockTimeline} />);
 
     expect(screen.getByTestId('timeline-root')).toBeInTheDocument();
@@ -51,7 +51,7 @@ describe('TimeLine', () => {
     expect(screen.getByTestId('timeline-link-0-0')).toHaveAttribute('href', '/blog/launch-project');
   });
 
-  it('omits optional link and description when data is absent', () => {
+  it('測試當資料缺失時是否省略可選的連結和描述', () => {
     render(<TimeLine List={mockTimeline} />);
 
     const planningItem = screen.getByTestId('timeline-item-0-1');

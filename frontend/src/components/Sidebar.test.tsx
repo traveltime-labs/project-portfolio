@@ -14,7 +14,8 @@ vi.mock('@/i18n/routing', () => ({
 }));
 
 describe('Sidebar', () => {
-  it('renders sidebar links when open', () => {
+
+  it('測試側邊欄在打開時是否正確渲染', () => {
     render(<Sidebar isOpen={true} />);
 
     expect(screen.getByTestId('sidebar-root')).toBeInTheDocument();
@@ -25,13 +26,13 @@ describe('Sidebar', () => {
     }
   });
 
-  it('applies hidden state classes when closed', () => {
+  it('測試側邊欄在關閉時是否正確應用隱藏狀態的樣式', () => {
     render(<Sidebar isOpen={false} />);
 
     expect(screen.getByTestId('sidebar-root')).toHaveClass('-translate-x-full', 'opacity-0', 'pointer-events-none');
   });
 
-  it('calls onClose when a navigation link is clicked', () => {
+  it('測試點擊導航連結時是否觸發 onClose 回調', () => {
     const onClose = vi.fn();
     render(<Sidebar isOpen={true} onClose={onClose} />);
 

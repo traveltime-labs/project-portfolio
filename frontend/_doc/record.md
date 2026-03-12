@@ -13,8 +13,8 @@ tags: ["Next.js", "Tailwind", "MDX"]
 
 ## 分類及標籤
 
-分類: "frontend", "backend", "android", "ios", "ui", "DB"
-標籤: "TailwindCSS", "React", "Vue", "nodeJS", "python", ".netcore", "SQL", "Postgresql", "Next.js"
+分類: "Frontend", "Backend", "Android", "IOS", "UI", "DB", "Git", "Yoe", "FOS", "Tool", "Software"
+標籤: "TailwindCSS", "React", "Vue", "nodeJS", "python", ".netcore", "SQL", "Postgresql", "Next.js", "Git", "Javascript", "Html", "CSS", "SCSS", "VsCode", "Bootstrap", ""
 
 
 ## 參考範例
@@ -23,8 +23,9 @@ tags: ["Next.js", "Tailwind", "MDX"]
 
 
 
-
-
-
+我想要在 /blog/[slug] 製作側邊欄位的文章內文標題定位錨點, 這樣有辦法做到嗎?
+1. 當使用者滑動文章的時候, 該title會hover
+2. 使用者點選錨點定位的標題, 頁面會滾到該區塊
+類似這樣的感覺
 
 

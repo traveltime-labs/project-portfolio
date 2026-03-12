@@ -29,7 +29,7 @@ const Content = () => {
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" data-testid="home-post-list">
             {posts.map((post, index) => (
               <Link
-                href={`/blog/${post.slug}`}
+                href={`/blog/${encodeURIComponent(post.slug)}`}
                 key={post.slug}
                 className="group"
                 data-testid={`home-post-link-${post.slug}`}

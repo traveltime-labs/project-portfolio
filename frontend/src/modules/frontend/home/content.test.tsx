@@ -9,6 +9,7 @@ vi.mock('@/hooks/blogLists', () => ({
   getAllPosts: vi.fn(),
 }));
 
+// 模擬 Link 組件以避免測試中出現 Next.js 的 Link 相關錯誤
 vi.mock('@/i18n/routing', () => ({
   Link: ({ href, children, ...props }: { href: string; children: ReactNode }) => (
     <a href={href} {...props}>
@@ -24,7 +25,7 @@ describe('Home content', () => {
     mockedGetAllPosts.mockReset();
   });
 
-  it('renders the homepage post list when posts exist', () => {
+  it('測試首頁內容在有文章時是否正確渲染', () => {
     mockedGetAllPosts.mockReturnValue([
       {
         slug: 'hello-vitest',
@@ -66,7 +67,7 @@ describe('Home content', () => {
     expect(within(firstCard).getByText('閱讀更多 →')).toBeInTheDocument();
   });
 
-  it('renders empty state when no posts exist', () => {
+  it('測試首頁內容在無文章時是否正確渲染空狀態', () => {
     mockedGetAllPosts.mockReturnValue([]);
 
     render(<Content />);
@@ -74,5 +75,26 @@ describe('Home content', () => {
     expect(screen.getByTestId('home-list-count')).toHaveTextContent('共 0 篇');
     expect(screen.getByTestId('home-empty-state')).toHaveTextContent('目前尚無文章，稍後再回來看看～');
     expect(screen.queryByTestId('home-post-list')).not.toBeInTheDocument();
+  });
+
+  it('會對包含特殊字元的 slug 進行 URL 編碼', () => {
+    mockedGetAllPosts.mockReturnValue([
+      {
+        slug: '20260223_Web_SSR前端框架(Next.js, Nuxt3, Vike)對比',
+        title: 'SSR 對比',
+        date: '2026-02-23',
+        category: 'Frontend',
+        excerpt: 'Special slug article.',
+        tags: ['ssr'],
+        cover: '/images/default-cover.jpg',
+      },
+    ]);
+
+    render(<Content />);
+
+    expect(screen.getByTestId('home-post-link-20260223_Web_SSR前端框架(Next.js, Nuxt3, Vike)對比')).toHaveAttribute(
+      'href',
+      '/blog/20260223_Web_SSR%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6(Next.js%2C%20Nuxt3%2C%20Vike)%E5%B0%8D%E6%AF%94',
+    );
   });
 });

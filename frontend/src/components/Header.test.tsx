@@ -55,7 +55,7 @@ describe('Header', () => {
     });
   });
 
-  it('renders translated title, navigation links, and breadcrumb', () => {
+  it('測試標題、導航連結和麵包屑是否正確渲染', () => {
     render(<Header toggleSidebar={toggleSidebar} isSidebarOpen={false} />);
 
     expect(screen.getByTestId('header-root')).toBeInTheDocument();
@@ -67,7 +67,7 @@ describe('Header', () => {
     expect(screen.getByTestId('header-breadcrumb')).toContainElement(screen.getByTestId('breadcrumb-stub'));
   });
 
-  it('toggles theme from light to dark', () => {
+  it('測試主題切換從淺色到深色', () => {
     render(<Header toggleSidebar={toggleSidebar} isSidebarOpen={false} />);
 
     fireEvent.click(screen.getByTestId('header-theme-toggle'));
@@ -75,7 +75,7 @@ describe('Header', () => {
     expect(setTheme).toHaveBeenCalledWith('dark');
   });
 
-  it('triggers sidebar toggle from the mobile control', () => {
+  it('測試側邊欄切換從行動裝置控制', () => {
     render(<Header toggleSidebar={toggleSidebar} isSidebarOpen={false} />);
 
     fireEvent.click(screen.getByTestId('header-sidebar-toggle'));

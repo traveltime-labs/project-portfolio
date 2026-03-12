@@ -1,11 +1,12 @@
 import fs from 'fs';
-import path from 'path';
 import matter from 'gray-matter';
 import { MDXRemote } from 'next-mdx-remote/rsc'; // 注意：App Router 使用 /rsc 版本
+import { notFound } from 'next/navigation';
 import remarkGfm from 'remark-gfm';
 import remarkSupersub from 'remark-supersub';
 import BreadcrumbTitleSync from '@/components/BreadcrumbTitleSync';
 import { Link } from '@/i18n/routing';
+import { readPostFile } from '@/lib/postContent';
 
 /**
  * 預處理 Markdown 原文，將 HackMD 擴充語法轉換為 HTML inline 標籤：
@@ -51,18 +52,13 @@ prose class：這來自你裝的 @tailwindcss/typography。Markdown 轉出來的
 const Content = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params;
 
-  // 1. 取得檔案路徑
-  const filePath = path.join(process.cwd(), 'src', 'content', 'posts', `${slug}.md`);
-  
-  if (!fs.existsSync(filePath)) {
-    return <div>找不到文章：{filePath}</div>;
+  const postFile = readPostFile(slug);
+  if (!postFile) {
+    notFound();
   }
 
-  // 2. 讀取檔案內容
-  const fileContent = fs.readFileSync(filePath, 'utf8');
+  const { fileContent } = postFile;
 
-    
-  // 3. 使用 gray-matter 解析 Front-matter (標題、日期等)
   const { content, data } = matter(fileContent);
   const safeDate = typeof data.date === 'string' ? data.date : '';
   const safeCategory = typeof data.category === 'string' ? data.category : '';

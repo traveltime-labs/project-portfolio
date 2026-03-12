@@ -5,6 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import InnerSidebar from '@/components/InnerSidebar';
 
+// 模擬 i18n Link 組件
 vi.mock('@/i18n/routing', () => ({
   Link: ({ href, children, ...props }: { href: string; children: ReactNode }) => (
     <a href={href} {...props}>
@@ -13,6 +14,7 @@ vi.mock('@/i18n/routing', () => ({
   ),
 }));
 
+// 模擬 fetch API 返回文章列表
 const mockPosts = [
   {
     slug: 'hello-vitest',
@@ -79,9 +81,10 @@ describe('InnerSidebar', () => {
     vi.unstubAllGlobals();
   });
 
-  it('renders aggregated article tags from fetched posts', async () => {
+  it('測試標籤列表是否正確渲染', async () => {
     render(<InnerSidebar />);
 
+    // 等待標籤列表載入完成
     const tagsList = await screen.findByTestId('sidebar-tags-list');
     expect(tagsList).toBeInTheDocument();
 
@@ -91,9 +94,10 @@ describe('InnerSidebar', () => {
     expect(screen.getByTestId('sidebar-tag-count-UI')).toHaveTextContent('2');
   });
 
-  it('renders article category counts from fetched posts', async () => {
+  it('測試文章分類列表是否正確渲染', async () => {
     render(<InnerSidebar />);
 
+    // 等待分類列表載入完成
     const categoriesList = await screen.findByTestId('sidebar-categories-list');
     expect(categoriesList).toBeInTheDocument();
 
@@ -103,7 +107,7 @@ describe('InnerSidebar', () => {
     expect(screen.getByTestId('sidebar-category-count-Backend')).toHaveTextContent('1');
   });
 
-  it('renders the five most recent posts in descending date order', async () => {
+  it('測試最近五篇文章是否按日期降序排列', async () => {
     render(<InnerSidebar />);
 
     const recentPostsList = await screen.findByTestId('sidebar-recent-posts-list');
@@ -120,7 +124,7 @@ describe('InnerSidebar', () => {
     expect(screen.queryByTestId('sidebar-recent-post-old-post')).not.toBeInTheDocument();
   });
 
-  it('搜尋功能測試', async () => {
+  it('測試搜尋功能', async () => {
     const user = userEvent.setup();
 
     render(<InnerSidebar />);

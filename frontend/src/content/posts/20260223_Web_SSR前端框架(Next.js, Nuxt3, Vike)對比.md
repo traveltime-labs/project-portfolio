@@ -1,21 +1,14 @@
 ---
-title: "Web 前端框架對比指南"
+title: "Web SSR前端框架(Next.js, Nuxt3, Vike)對比"
 date: "2026-02-23"
-category: "前端框架"
-excerpt: "測試是否從這裡抓取。"
-tags: ["前端框架", "frontend"]
+category: "Frontend"
+excerpt: "Web SSR前端框架對比"
+tags: ["Next.js", "Nuxt3", "vike"]
 ---
 
 
-# 2026 Web 前端框架對比指南：Next.js vs. Nuxt vs. Vike
-
----
-title: 2026 Web 前端框架對比指南：Next.js vs. Nuxt vs. Vike
-date: 2026-02-23
-category: 前端框架
----
-
-這份文件旨在分析當前最主流的 React/Vue 框架與新興的 Vike (Vite-plugin-ssr) 之間的技術差異，幫助您決定最適合的技術棧。
+# 2026 Web SSR前端框架對比：Next.js vs. Nuxt vs. Vike
+分析當前最主流的 React/Vue 框架與新興的 Vike (Vite-plugin-ssr) 之間的技術差異。
 
 ---
 

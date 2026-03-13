@@ -35,12 +35,12 @@ const Content = () => {
                 data-testid={`home-post-link-${post.slug}`}
               >
                 <article
-                  className="h-full bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-lg transform transition duration-200 hover:-translate-y-1"
+                  className="h-full dark:bg-slate-800 light:bg-white rounded-2xl border light:border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm hover:shadow-lg transform transition duration-200 hover:-translate-y-1"
                   data-testid={`home-post-card-${index}`}
                 >
                   <div className="p-5">
                     <div className="flex items-center justify-between mb-3">
-                      <div className="text-sm text-blue-600 font-medium bg-blue-50 px-2 py-1 rounded" data-testid={`home-post-category-${post.slug}`}>
+                      <div className="text-sm text-blue-600 dark:text-white font-medium dark:bg-slate-700 light:bg-blue-50 px-2 py-1 rounded" data-testid={`home-post-category-${post.slug}`}>
                         {post.category}
                       </div>
                       <div className="text-xs text-slate-400" data-testid={`home-post-date-${post.slug}`}>{formatDate(post.date)}</div>

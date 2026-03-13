@@ -195,24 +195,24 @@ export default function InnerSideBar() {
         ) : null}
 
         {/* Categories */}
-        <div className="bg-white border dark:bg-slate-800  border-slate-200 rounded-2xl p-4 hidden lg:block" data-testid="sidebar-categories">
+        <div className="light:bg-white border dark:bg-slate-800 light:border-slate-200 rounded-2xl p-4 hidden lg:block" data-testid="sidebar-categories">
           <h4 className="text-sm transition-colors font-semibold mb-3" data-testid="sidebar-categories-title">文章分類</h4>
           <ul className="space-y-2 text-sm" data-testid="sidebar-categories-list">
             {Object.entries(categories).map(([category, count]) => (
               <li key={category} className="flex items-center justify-between" data-testid={`sidebar-category-item-${encodeURIComponent(category)}`}>
-                <Link href={`/category/${encodeURIComponent(category)}`} className="text-slate-700 transition-colors hover:text-blue-600" data-testid={`sidebar-category-link-${encodeURIComponent(category)}`}>{category}</Link>
+                <Link href={`/category/${encodeURIComponent(category)}`} className="text-slate-700 transition-colors hover:text-blue-600 dark:text-slate-300" data-testid={`sidebar-category-link-${encodeURIComponent(category)}`}>{category}</Link>
                 <span className="text-xs text-slate-400" data-testid={`sidebar-category-count-${encodeURIComponent(category)}`}>{count}</span>
               </li>
             ))}
           </ul>
         </div>
 
-        <div className="bg-white border dark:bg-slate-800 border-slate-200 rounded-2xl p-4 hidden lg:block" data-testid="sidebar-tags">
+        <div className="light:bg-white border dark:bg-slate-800 light:border-slate-200 rounded-2xl p-4 hidden lg:block" data-testid="sidebar-tags">
           <h4 className="text-sm transition-colors font-semibold mb-3" data-testid="sidebar-tags-title">文章標籤</h4>
           <ul className="space-y-2 text-sm" data-testid="sidebar-tags-list">
             {Object.entries(tags).map(([tag, count]) => (
               <li key={tag} className="flex items-center justify-between" data-testid={`sidebar-tag-item-${encodeURIComponent(tag)}`}>
-                <Link href={`/tags/${encodeURIComponent(tag)}`} className="text-slate-700 transition-colors hover:text-blue-600" data-testid={`sidebar-tag-link-${encodeURIComponent(tag)}`}>
+                <Link href={`/tags/${encodeURIComponent(tag)}`} className="text-slate-700 transition-colors hover:text-blue-600 dark:text-slate-300" data-testid={`sidebar-tag-link-${encodeURIComponent(tag)}`}>
                   #{tag}
                 </Link>
                 <span className="text-xs text-slate-400" data-testid={`sidebar-tag-count-${encodeURIComponent(tag)}`}>{count}</span>
@@ -221,9 +221,9 @@ export default function InnerSideBar() {
           </ul>
         </div>
 
-        <div className="bg-white dark:bg-slate-800  border border-slate-200 rounded-2xl p-4 hidden lg:block" data-testid="sidebar-recent-posts">
+        <div className="light:bg-white border dark:bg-slate-800 light:border-slate-200 rounded-2xl p-4 hidden lg:block" data-testid="sidebar-recent-posts">
           <h4 className="text-sm transition-colors font-semibold mb-3" data-testid="sidebar-recent-posts-title">近期文章</h4>
-          <ul className="space-y-2 text-sm text-slate-700" data-testid="sidebar-recent-posts-list">
+          <ul className="space-y-2 text-sm text-slate-700 dark:text-slate-300" data-testid="sidebar-recent-posts-list">
             {recentPosts.map((post) => (
               <li key={post.slug} data-testid={`sidebar-recent-post-${post.slug}`}>
                 <Link href={`/blog/${encodeURIComponent(post.slug)}`} className="hover:text-blue-600 transition-colors line-clamp-1" data-testid={`sidebar-recent-post-link-${post.slug}`}>{post.title}</Link>

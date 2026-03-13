@@ -218,7 +218,7 @@ const Content = ()=>{
                             className: "group",
                             "data-testid": `home-post-link-${post.slug}`,
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("article", {
-                                className: "h-full bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-lg transform transition duration-200 hover:-translate-y-1",
+                                className: "h-full dark:bg-slate-800 light:bg-white rounded-2xl border light:border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm hover:shadow-lg transform transition duration-200 hover:-translate-y-1",
                                 "data-testid": `home-post-card-${index}`,
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "p-5",
@@ -227,7 +227,7 @@ const Content = ()=>{
                                             className: "flex items-center justify-between mb-3",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "text-sm text-blue-600 font-medium bg-blue-50 px-2 py-1 rounded",
+                                                    className: "text-sm text-blue-600 dark:text-white font-medium dark:bg-slate-700 light:bg-blue-50 px-2 py-1 rounded",
                                                     "data-testid": `home-post-category-${post.slug}`,
                                                     children: post.category
                                                 }, void 0, false, {

@@ -1,8 +1,9 @@
-_doc
 **/node_modules/
 .next/
 out/
 build/
+frontend/playwright-report/
+frontend/test-results/
 
 
 # 排除 SQLite DB

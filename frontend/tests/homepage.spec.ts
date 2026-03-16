@@ -1,19 +1,23 @@
 import { expect, test } from '@playwright/test';
 
-test('homepage load, list, sidebar, tags, and article navigation', async ({ page }) => {
+test('測試首頁的載入、文章列表、側邊欄、標籤顯示，以及文章內頁導向', async ({ page }) => {
   await page.goto('/zh');
 
+  // 確認首頁元素存在
   await expect(page.getByTestId('home-page')).toBeVisible();
   await expect(page.getByTestId('home-list-title')).toHaveText('最新文章');
 
+  // 確認文章列表存在且有文章項目
   const postList = page.getByTestId('home-post-list');
   const postCards = page.locator('[data-testid^="home-post-card-"]');
 
+  // 確認文章列表可見且至少有一篇文章
   await expect(postList).toBeVisible();
   await expect(postCards.first()).toBeVisible();
   expect(await postCards.count()).toBeGreaterThan(0);
   await expect(page.getByTestId('home-list-count')).not.toHaveText('共 0 篇');
 
+  // 確認側邊欄元素存在
   await expect(page.getByTestId('home-sidebar')).toBeVisible();
   await expect(page.getByTestId('sidebar-author-card')).toBeVisible();
   await expect(page.getByTestId('sidebar-search')).toBeVisible();
@@ -21,6 +25,7 @@ test('homepage load, list, sidebar, tags, and article navigation', async ({ page
   await expect(page.getByTestId('sidebar-tags')).toBeVisible();
   await expect(page.getByTestId('sidebar-recent-posts')).toBeVisible();
 
+  // 確認側邊欄分類和標籤至少有一項
   const categoryItems = page.locator('[data-testid^="sidebar-category-item-"]');
   const tagItems = page.locator('[data-testid^="sidebar-tag-item-"]');
 

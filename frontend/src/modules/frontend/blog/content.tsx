@@ -96,7 +96,7 @@ const Content = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const processedContent = preprocessContent(content);
 
   return (
-    <main className="mx-auto py-10 px-3 lg:pr-0" data-testid="blog-detail-page">
+    <main className="mx-auto py-10 px-3 lg:pr-6" data-testid="blog-detail-page">
       <BlogHeadingsSync headings={headings} />
       <BreadcrumbTitleSync title={typeof data.title === 'string' ? data.title : undefined} />
       <header className="mb-8 max-w-4xl" data-testid="blog-detail-header">
